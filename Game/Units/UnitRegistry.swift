@@ -39,7 +39,7 @@ struct UnitRegistry {
             name: "Warrior",
             maxHP: 10,
             attack: 3,
-            attackSpeed: 5,
+            attackSpeed: 3,
             range: 1,
             threatRange: 8,
             movementSpeed: 2,
@@ -67,8 +67,8 @@ struct UnitRegistry {
             range: 6,
             threatRange: 8,
             movementSpeed: 3,
-            attackPattern: .tether(effectName: "goosey")
-            //attackPattern: .blast(radius: 1, projectileName: "fireball", friendlyFire: false)
+            //attackPattern: .tether(effectName: "goosey")
+            attackPattern: .blast(radius: 1, projectileName: "bullet", smokeTrail: false, friendlyFire: false)
         ),
         
         //archer

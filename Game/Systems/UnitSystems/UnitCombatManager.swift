@@ -101,7 +101,10 @@ extension UnitManager {
                 attacker.updateFacing(to: target.unit.position.col)
                         
                 // Note: We do NOT call executeAttack here.
-                continue
+                // FIX: If speed is 1, don't 'continue'. Let it fall through to the hit logic!
+                if attacker.unit.attackSpeed > 1 {
+                    continue
+                }
             }
 
             // 3. TRIGGER THE HIT: If cooldown is 1, it will be 0 next tick.

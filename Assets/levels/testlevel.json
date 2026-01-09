@@ -14,6 +14,7 @@
   "entities": [
     { "type": "Warrior", "row": 21, "col": 13, "team": "enemy" },
     { "type": "Archer", "row": 15, "col": 10, "team": "enemy" },
-    { "type": "Mine", "row": 20, "col": 12, "team": "neutral" }
+    { "type": "Mine", "row": 20, "col": 12, "team": "neutral" },
+    { "type": "Mine", "row": 19, "col": 14, "team": "neutral" },
   ]
 }
