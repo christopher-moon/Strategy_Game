@@ -24,7 +24,7 @@ class ProjectileNode: SKNode, AnimatableEntity {
         super.init()
         
         self.addChild(visualSprite)
-        self.zPosition = 3000
+        self.zPosition = ZManager.projectile
         
         updateVisualState()
     }

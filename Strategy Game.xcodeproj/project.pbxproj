@@ -64,6 +64,7 @@
 		653F64942F10A38500B2C014 /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653F64932F10A38500B2C014 /* Level.swift */; };
 		653F64962F10AB4600B2C014 /* testlevel.json in Resources */ = {isa = PBXBuildFile; fileRef = 653F64952F10AB4600B2C014 /* testlevel.json */; };
 		653F64982F10C3B200B2C014 /* alert_play.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 653F64972F10C3B200B2C014 /* alert_play.atlas */; };
+		653F649A2F1172BD00B2C014 /* ZManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653F64992F1172BD00B2C014 /* ZManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -145,6 +146,7 @@
 		653F64932F10A38500B2C014 /* Level.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
 		653F64952F10AB4600B2C014 /* testlevel.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testlevel.json; sourceTree = "<group>"; };
 		653F64972F10C3B200B2C014 /* alert_play.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = alert_play.atlas; sourceTree = "<group>"; };
+		653F64992F1172BD00B2C014 /* ZManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -378,6 +380,7 @@
 			children = (
 				653F64542F0A372A00B2C014 /* AnimationManager.swift */,
 				653F647D2F0F6FEC00B2C014 /* EffectNode.swift */,
+				653F64992F1172BD00B2C014 /* ZManager.swift */,
 			);
 			path = AnimationSystems;
 			sourceTree = "<group>";
@@ -592,6 +595,7 @@
 				653F647E2F0F6FEC00B2C014 /* EffectNode.swift in Sources */,
 				653F64412ED7B0F500B2C014 /* AStar.swift in Sources */,
 				653F64532F0A351200B2C014 /* codeholder.swift in Sources */,
+				653F649A2F1172BD00B2C014 /* ZManager.swift in Sources */,
 				653F642E2ED0232500B2C014 /* MenuScene.swift in Sources */,
 				653F64942F10A38500B2C014 /* Level.swift in Sources */,
 				653F64572F0A394000B2C014 /* ProjectileNode.swift in Sources */,

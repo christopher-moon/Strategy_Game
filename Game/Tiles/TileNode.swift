@@ -34,7 +34,7 @@ class TileNode: SKSpriteNode {
     }
     
     func zPositionForRow(maxRow: Int) -> CGFloat {
-        500 + CGFloat(maxRow - tile.position.row)
+        return ZManager.terrain + CGFloat(tile.position.row)
     }
     
     //convert in game tile position to actual pixels on the screen

@@ -38,7 +38,9 @@ class ObstacleNode: SKNode, AnimatableEntity {
         super.init()
         
         self.addChild(visual)
-        self.zPosition = 2100
+        
+        // Use ZManager instead of hardcoded 2100
+        self.zPosition = ZManager.forRow(obstacle.position.row)
         
         updateVisualState()
     }
@@ -54,5 +56,7 @@ class ObstacleNode: SKNode, AnimatableEntity {
     func setVisualPosition(to tile: TileNode){
         self.position = tile.position
         self.obstacle.position = tile.tile.position
+        // Update Z when position is set manually
+        self.zPosition = ZManager.forRow(tile.tile.position.row)
     }
 }

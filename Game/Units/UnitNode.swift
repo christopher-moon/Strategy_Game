@@ -52,7 +52,9 @@ class UnitNode: SKNode, AnimatableEntity {
         flipContainer.addChild(visual) // Add visual to container
         
         self.setupHealthBar()
-        self.zPosition = 2000
+        
+        //initial z pos based on row
+        self.zPosition = ZManager.forRow(unit.position.row)
         
         updateVisualState()
     }
@@ -86,6 +88,7 @@ class UnitNode: SKNode, AnimatableEntity {
     func setVisualPosition(to tile: TileNode) {
         self.position = tile.position
         self.unit.position = tile.tile.position
+        self.zPosition = ZManager.forRow(tile.tile.position.row)
     }
     
     // MARK: VISUAL MOVEMENT
@@ -94,6 +97,9 @@ class UnitNode: SKNode, AnimatableEntity {
         self.removeAction(forKey: "attack_cleanup") // ADD THIS: Stop the idle-return timer
         //update direction
         updateFacing(to: tile.tile.position.col)
+        
+        // Update Z-position as soon as the move starts (or use a sequence to update mid-move)
+        self.zPosition = ZManager.forRow(tile.tile.position.row)
         // 1. Define the move
         let moveAction = SKAction.move(to: tile.position, duration: moveDuration)
         // 2. Define the completion logic
@@ -116,7 +122,8 @@ class UnitNode: SKNode, AnimatableEntity {
         let bgSize = CGSize(width: 26, height: 4)
         let background = SKSpriteNode(color: .black, size: bgSize)
         healthBarContainer.position = CGPoint(x: 0, y: visual.size.height + 10)
-        healthBarContainer.zPosition = 10
+        //ui layer
+        healthBarContainer.zPosition = ZManager.ui
         healthBar.anchorPoint = CGPoint(x: 0, y: 0.5)
         healthBar.position = CGPoint(x: -bgSize.width/2 + 1, y: 0)
         addChild(healthBarContainer)

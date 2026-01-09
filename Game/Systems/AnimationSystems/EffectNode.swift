@@ -19,7 +19,7 @@ class EffectNode: SKNode, AnimatableEntity {
         self.position = position
         self.addChild(visualSprite)
         
-        self.zPosition = 4000
+        self.zPosition = ZManager.effect
         
         let playDuration: TimeInterval = 0.2
         
