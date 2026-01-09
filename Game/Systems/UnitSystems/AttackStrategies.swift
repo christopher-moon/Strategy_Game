@@ -22,12 +22,13 @@ struct ProjectileStrategy: AttackStrategy {
         let delay = SKAction.wait(forDuration: 0.15)
         
         let fireRound = SKAction.run { [weak attacker, weak system] in
-            // Use a unique name like 'strongSystem' to stop shadowing ambiguity
+            // 1. Shadow with a UNIQUE name to clear the 'Ghost Error'
             guard let strongAttacker = attacker,
                   let strongSystem = system else { return }
             
+            // 2. Pass the strong references into the projectile logic
             strongSystem.fireProjectile(name: name, smokeTrail: smokeTrail, from: strongAttacker, to: target) {
-                // Now we use the unique name inside the nested closure too
+                // Inside this nested closure, we use the 'strongSystem' we just made
                 strongSystem.applyDamage(to: target.unit.id, amount: strongAttacker.unit.attack)
             }
         }
@@ -47,10 +48,12 @@ struct BlastStrategy: AttackStrategy {
     func execute(attacker: UnitNode, target: UnitNode, system: CombatSystem) {
         if let proj = projectileName {
             system.fireProjectile(name: proj, smokeTrail: smokeTrail, from: attacker, to: target) { [weak system, weak attacker] in
-                // Using unique names here clears the 'Ghost Error'
+                
+                // 1. Create the strong bridge
                 guard let strongSystem = system,
                       let strongAttacker = attacker else { return }
                 
+                // 2. Now use the strong references safely
                 strongSystem.executeAoE(
                     at: target.unit.position,
                     radius: radius,
@@ -60,11 +63,12 @@ struct BlastStrategy: AttackStrategy {
                 )
             }
         } else {
-            // No closure here, so no issue
+            // No closure needed here, so no weak/strong dance required
             system.executeAoE(at: target.unit.position, radius: radius, damage: attacker.unit.attack, team: attacker.unit.team, friendlyFire: friendlyFire)
         }
     }
 }
+
 
 // MARK: - Tether
 struct TetherStrategy: AttackStrategy {
