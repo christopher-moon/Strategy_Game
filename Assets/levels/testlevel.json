@@ -1,0 +1,19 @@
+{
+  "name": "Awawa!",
+  "rows": 23,
+  "cols": 15,
+  "tiles": [
+    { "row": 10, "col": 7, "terrain": "objective" },
+    { "row": 11, "col": 7, "terrain": "objective" },
+    { "row": 12, "col": 7, "terrain": "objective" },
+    { "row": 13, "col": 7, "terrain": "objective" },
+    { "row": 14, "col": 7, "terrain": "objective" },
+    { "row": 5, "col": 5, "terrain": "wall" },
+    { "row": 5, "col": 6, "terrain": "wall" }
+  ],
+  "entities": [
+    { "type": "Warrior", "row": 21, "col": 13, "team": "enemy" },
+    { "type": "Archer", "row": 15, "col": 10, "team": "enemy" },
+    { "type": "Mine", "row": 20, "col": 12, "team": "neutral" }
+  ]
+}

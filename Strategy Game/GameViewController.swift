@@ -1,10 +1,3 @@
-//
-//  GameViewController.swift
-//  Strategy Game
-//
-//  Created by Chris Moon on 11/18/25.
-//
-
 import UIKit
 import SpriteKit
 import GameplayKit
@@ -14,32 +7,25 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let view = self.view as! SKView? {
-            // Load the SKScene from 'GameScene.sks'
-            if let scene = SKScene(fileNamed: "GameScene") {
-                // Set the scale mode to scale to fit the window
-                scene.scaleMode = .aspectFill
-                
-                // Present the scene
-                view.presentScene(scene)
-            }
+        if let view = self.view as? SKView {
+            // Create the GameScene programmatically
+            let scene = GameScene(size: view.bounds.size)
+            scene.scaleMode = .resizeFill
+            
+            // Present the scene
+            view.presentScene(scene)
             
             view.ignoresSiblingOrder = true
-            
             view.showsFPS = true
             view.showsNodeCount = true
         }
     }
 
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            return .allButUpsideDown
-        } else {
-            return .all
-        }
+        UIDevice.current.userInterfaceIdiom == .phone ? .allButUpsideDown : .all
     }
 
     override var prefersStatusBarHidden: Bool {
-        return true
+        true
     }
 }
