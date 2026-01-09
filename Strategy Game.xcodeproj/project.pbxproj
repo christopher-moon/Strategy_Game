@@ -27,8 +27,6 @@
 		653F64362ED025DC00B2C014 /* Units.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653F64352ED025DC00B2C014 /* Units.swift */; };
 		653F64382ED0265D00B2C014 /* UnitNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653F64372ED0265D00B2C014 /* UnitNode.swift */; };
 		653F643A2ED154A500B2C014 /* UnitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653F64392ED154A500B2C014 /* UnitManager.swift */; };
-		653F643D2ED57A1B00B2C014 /* UnitPathManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653F643C2ED57A1B00B2C014 /* UnitPathManager.swift */; };
-		653F643F2ED5822900B2C014 /* UnitCombatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653F643E2ED5822900B2C014 /* UnitCombatManager.swift */; };
 		653F64412ED7B0F500B2C014 /* AStar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653F64402ED7B0F500B2C014 /* AStar.swift */; };
 		653F64452EDCEB5200B2C014 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653F64442EDCEB5200B2C014 /* Map.swift */; };
 		653F64472EDCEBB000B2C014 /* TestUnits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653F64462EDCEBB000B2C014 /* TestUnits.swift */; };
@@ -65,6 +63,10 @@
 		653F64962F10AB4600B2C014 /* testlevel.json in Resources */ = {isa = PBXBuildFile; fileRef = 653F64952F10AB4600B2C014 /* testlevel.json */; };
 		653F64982F10C3B200B2C014 /* alert_play.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 653F64972F10C3B200B2C014 /* alert_play.atlas */; };
 		653F649A2F1172BD00B2C014 /* ZManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653F64992F1172BD00B2C014 /* ZManager.swift */; };
+		653F649C2F117BFA00B2C014 /* SpawnerSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653F649B2F117BFA00B2C014 /* SpawnerSystem.swift */; };
+		653F649E2F117C3400B2C014 /* MovementSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653F649D2F117C3400B2C014 /* MovementSystem.swift */; };
+		653F64A02F117C9C00B2C014 /* CombatSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653F649F2F117C9C00B2C014 /* CombatSystem.swift */; };
+		653F64A22F117EE300B2C014 /* AttackStrategies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653F64A12F117EE300B2C014 /* AttackStrategies.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,8 +111,6 @@
 		653F64352ED025DC00B2C014 /* Units.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Units.swift; sourceTree = "<group>"; };
 		653F64372ED0265D00B2C014 /* UnitNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitNode.swift; sourceTree = "<group>"; };
 		653F64392ED154A500B2C014 /* UnitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitManager.swift; sourceTree = "<group>"; };
-		653F643C2ED57A1B00B2C014 /* UnitPathManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitPathManager.swift; sourceTree = "<group>"; };
-		653F643E2ED5822900B2C014 /* UnitCombatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitCombatManager.swift; sourceTree = "<group>"; };
 		653F64402ED7B0F500B2C014 /* AStar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AStar.swift; sourceTree = "<group>"; };
 		653F64442EDCEB5200B2C014 /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		653F64462EDCEBB000B2C014 /* TestUnits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUnits.swift; sourceTree = "<group>"; };
@@ -147,6 +147,10 @@
 		653F64952F10AB4600B2C014 /* testlevel.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testlevel.json; sourceTree = "<group>"; };
 		653F64972F10C3B200B2C014 /* alert_play.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = alert_play.atlas; sourceTree = "<group>"; };
 		653F64992F1172BD00B2C014 /* ZManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZManager.swift; sourceTree = "<group>"; };
+		653F649B2F117BFA00B2C014 /* SpawnerSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpawnerSystem.swift; sourceTree = "<group>"; };
+		653F649D2F117C3400B2C014 /* MovementSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovementSystem.swift; sourceTree = "<group>"; };
+		653F649F2F117C9C00B2C014 /* CombatSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombatSystem.swift; sourceTree = "<group>"; };
+		653F64A12F117EE300B2C014 /* AttackStrategies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackStrategies.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -285,9 +289,12 @@
 		653F641B2ECD7AF700B2C014 /* Systems */ = {
 			isa = PBXGroup;
 			children = (
+				653F64792F0DA5B200B2C014 /* GridManager.swift */,
+				653F649B2F117BFA00B2C014 /* SpawnerSystem.swift */,
+				653F649F2F117C9C00B2C014 /* CombatSystem.swift */,
+				653F649D2F117C3400B2C014 /* MovementSystem.swift */,
 				653F64782F0DA59900B2C014 /* AnimationSystems */,
 				653F64772F0DA4F400B2C014 /* ObstacleSystems */,
-				653F64762F0DA4E900B2C014 /* GridSystems */,
 				653F643B2ED154F000B2C014 /* UnitSystems */,
 			);
 			path = Systems;
@@ -340,11 +347,10 @@
 			isa = PBXGroup;
 			children = (
 				653F64392ED154A500B2C014 /* UnitManager.swift */,
-				653F643C2ED57A1B00B2C014 /* UnitPathManager.swift */,
-				653F643E2ED5822900B2C014 /* UnitCombatManager.swift */,
 				653F644A2EF0F57900B2C014 /* UnitAIBrain.swift */,
 				653F644C2EF0F6CC00B2C014 /* AttackerUnitAI.swift */,
 				653F644E2EF1033200B2C014 /* ObjectiveUnitAI.swift */,
+				653F64A12F117EE300B2C014 /* AttackStrategies.swift */,
 			);
 			path = UnitSystems;
 			sourceTree = "<group>";
@@ -357,14 +363,6 @@
 				653F647B2F0DB5CB00B2C014 /* ObstacleRegistry.swift */,
 			);
 			path = Obstacles;
-			sourceTree = "<group>";
-		};
-		653F64762F0DA4E900B2C014 /* GridSystems */ = {
-			isa = PBXGroup;
-			children = (
-				653F64792F0DA5B200B2C014 /* GridManager.swift */,
-			);
-			path = GridSystems;
 			sourceTree = "<group>";
 		};
 		653F64772F0DA4F400B2C014 /* ObstacleSystems */ = {
@@ -582,7 +580,9 @@
 				653F644F2EF1033200B2C014 /* ObjectiveUnitAI.swift in Sources */,
 				653F64302ED0233000B2C014 /* DeckScene.swift in Sources */,
 				653F647A2F0DA5B200B2C014 /* GridManager.swift in Sources */,
+				653F649C2F117BFA00B2C014 /* SpawnerSystem.swift in Sources */,
 				653F63E82ECD70FA00B2C014 /* GameViewController.swift in Sources */,
+				653F64A22F117EE300B2C014 /* AttackStrategies.swift in Sources */,
 				653F64362ED025DC00B2C014 /* Units.swift in Sources */,
 				653F647C2F0DB5CB00B2C014 /* ObstacleRegistry.swift in Sources */,
 				653F64382ED0265D00B2C014 /* UnitNode.swift in Sources */,
@@ -590,7 +590,6 @@
 				653F64472EDCEBB000B2C014 /* TestUnits.swift in Sources */,
 				653F64732F0CA05400B2C014 /* ObstacleNode.swift in Sources */,
 				653F642C2ECD893000B2C014 /* TileNode.swift in Sources */,
-				653F643D2ED57A1B00B2C014 /* UnitPathManager.swift in Sources */,
 				653F644B2EF0F57900B2C014 /* UnitAIBrain.swift in Sources */,
 				653F647E2F0F6FEC00B2C014 /* EffectNode.swift in Sources */,
 				653F64412ED7B0F500B2C014 /* AStar.swift in Sources */,
@@ -603,12 +602,13 @@
 				653F64712F0C9F2C00B2C014 /* Obstacle.swift in Sources */,
 				653F63E02ECD70FA00B2C014 /* AppDelegate.swift in Sources */,
 				653F64452EDCEB5200B2C014 /* Map.swift in Sources */,
+				653F649E2F117C3400B2C014 /* MovementSystem.swift in Sources */,
 				653F642A2ECD889900B2C014 /* Tile.swift in Sources */,
 				653F64512F0A2C0C00B2C014 /* UnitRegistry.swift in Sources */,
 				653F64552F0A372A00B2C014 /* AnimationManager.swift in Sources */,
+				653F64A02F117C9C00B2C014 /* CombatSystem.swift in Sources */,
 				653F64912F10A1C600B2C014 /* LevelManager.swift in Sources */,
 				653F643A2ED154A500B2C014 /* UnitManager.swift in Sources */,
-				653F643F2ED5822900B2C014 /* UnitCombatManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -19,7 +19,7 @@ extension GameScene {
         spawnEntities(from: levelData)
         
         // 4. start unit ai
-        unitManager.startAITick()
+        //unitManager.movement.startAITick()
     }
     
     //create grid

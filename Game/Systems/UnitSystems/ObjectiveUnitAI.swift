@@ -1,12 +1,12 @@
 import SpriteKit
 import Foundation
 
-
 struct ObjectiveRunnerAI: UnitAIBrain {
     let arrivalThreshold: Int = 3
 
     func determineAction(for unit: UnitNode, manager: UnitManager) -> TilePosition? {
-        guard let objectiveTile = manager.scene?.findNearestObjective(from: unit.unit.position, unitManager: manager) else {
+        // UPDATED: Access movement system for objective logic
+        guard let objectiveTile = manager.movement.findNearestObjectiveTile(from: unit.unit.position) else {
             unit.unit.state = .idle
             unit.unit.isMissionLocked = false
             return nil
@@ -22,15 +22,15 @@ struct ObjectiveRunnerAI: UnitAIBrain {
         }
 
         if unit.unit.isMissionLocked {
-            // Attempt to move
+            // Attempt to move (Using UnitAIBrain extension which calls manager.movement)
             if let nextStep = moveToward(target: objectiveTile, for: unit, manager: manager) {
                 
-                // CHECK FOR BLOCKERS (Same logic as before)
+                // CHECK FOR BLOCKERS
                 if let blocker = manager.unitAt(nextStep) {
                     if blocker.unit.team != unit.unit.team {
                         return attackTarget(blocker, for: unit, manager: manager)
                     } else {
-                        // Friendly block: just wait (since we aren't swapping)
+                        // Friendly block
                         unit.unit.state = .idle
                         return nil
                     }
@@ -38,39 +38,25 @@ struct ObjectiveRunnerAI: UnitAIBrain {
                 return nextStep
                 
             } else {
-                // --- THE FALLBACK LOGIC ---
-                // moveToward returned nil (Path is physically blocked by walls/enemies)
-                // We search for the nearest enemy to clear a path.
-                if let targetEnemy = manager.findTargetedEnemy(for: unit) {
+                // FALLBACK: Path blocked
+                // UPDATED: Access combat system
+                if let targetEnemy = manager.combat.findTargetedEnemy(for: unit) {
                     unit.unit.needsRepath = true
                     return attackTarget(targetEnemy, for: unit, manager: manager)
                 }
             }
         }
 
-        // 2. COMBAT ZONE LOGIC (When not mission locked or fallback failed)
-        if let targetEnemy = manager.findTargetedEnemy(for: unit) {
+        // 2. COMBAT ZONE LOGIC
+        // UPDATED: Access combat system
+        if let targetEnemy = manager.combat.findTargetedEnemy(for: unit) {
             return attackTarget(targetEnemy, for: unit, manager: manager)
         }
         
         return moveToward(target: objectiveTile, for: unit, manager: manager)
     }
     
-    private func initiatePush(actor: UnitNode, target: UnitNode, manager: UnitManager) -> TilePosition? {
-        // Only push if the friend isn't also mission-locked (prevents infinite swapping)
-        guard !target.unit.isMissionLocked else { return nil }
-        
-        let actorPos = actor.unit.position
-        let targetPos = target.unit.position
-        
-        // Logically swap their positions
-        actor.unit.position = targetPos
-        target.unit.position = actorPos
-        
-        // Visual updates
-        manager.moveUnit(actor, to: manager.scene!.tileAt(position: targetPos)!, duration: 0.2)
-        manager.moveUnit(target, to: manager.scene!.tileAt(position: actorPos)!, duration: 0.2)
-        
-        return targetPos // Return the new position so the AI tick knows where we moved
-    }
+    // Note: If you need initiatePush logic, rely on the MovementSystem
+    // For now, this AI seems to just return TilePositions, so pushing (swapping)
+    // might need to be a custom function in MovementSystem if you want to keep it.
 }

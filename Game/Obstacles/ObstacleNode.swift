@@ -59,4 +59,14 @@ class ObstacleNode: SKNode, AnimatableEntity {
         // Update Z when position is set manually
         self.zPosition = ZManager.forRow(tile.tile.position.row)
     }
+    
+    //MARK: DIE
+    func die(completion: @escaping () -> Void) {
+        // Simple fade out for now
+        run(SKAction.sequence([
+            SKAction.fadeOut(withDuration: 0.2),
+            SKAction.run { completion() },
+            SKAction.removeFromParent() // Visual cleanup happens here
+        ]))
+    }
 }

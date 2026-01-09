@@ -30,8 +30,8 @@ class GameScene: SKScene {
         //load level from json file
         setupLevel(named: "testlevel")
         
-        //test basic pathfinding (units will pathfind to objective)
-        unitManager.startAITick()
+        //start game
+        unitManager.movement.startAITick()
 
     }
     

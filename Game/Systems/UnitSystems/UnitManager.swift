@@ -4,14 +4,18 @@ import Foundation
 
 class UnitManager {
     
+    // Dependencies
     weak var scene: GameScene?
     let gridManager: GridManager
     let obstacleManager: ObstacleManager
     
+    // Source of Truth
     var units: [UUID: UnitNode] = [:]
-    //var occupiedTiles: Set<TilePosition> = []
-    var moveRequests: [UUID: TilePosition] = [:]
-    var reservedTiles: Set<TilePosition> = []
+    
+    // Sub-Systems (Composition)
+    lazy var factory = ObjectFactory(manager: self)
+    lazy var movement = MovementSystem(manager: self)
+    lazy var combat = CombatSystem(manager: self)
     
     init(scene: GameScene, gridManager: GridManager, obstacleManager: ObstacleManager) {
         self.scene = scene
@@ -19,94 +23,44 @@ class UnitManager {
         self.obstacleManager = obstacleManager
     }
     
-    // MARK: SPAWN UNIT
-    func spawnUnit(type: String, team: Team, aiBrain: UnitAIBrain = BasicCombatAI(), at tile: TileNode){
-        // 1. get the blueprint
-        guard let blueprint = UnitRegistry.data[type] else {
-            print("unit \(type) does not exist!")
-            return
-        }
-        // 2. create the unit using the blueprint data
-        let newUnit = Unit(
-            name: blueprint.name,
-            team: team,
-            ai: aiBrain,
-            hp: blueprint.maxHP,
-            maxHP: blueprint.maxHP,
-            attack: blueprint.attack,
-            range: blueprint.range,
-            threatRange: blueprint.threatRange,
-            attackSpeed: blueprint.attackSpeed,
-            attackPattern: blueprint.attackPattern,
-            movementSpeed: blueprint.movementSpeed,
-            position: tile.tile.position
-        )
-        // 3. create the Visual Node
-        let unitNode = UnitNode(unit: newUnit, tileSize: scene!.tileSize)
-        
-        unitNode.setVisualPosition(to: tile)
-        // 4. Add to the scene hierarchy
-        scene?.gridNode.addChild(unitNode)
-        // 5. add to list of units
-        units[newUnit.id] = unitNode
-        // 6. Register unit with GridManager using its unique ID
-        gridManager.registerOccupancy(id: newUnit.id, pos: tile.tile.position)
+    // MARK: - Lifecycle Proxy
+    func spawnUnit(type: String, team: Team, aiBrain: UnitAIBrain = BasicCombatAI(), at tile: TileNode) {
+        factory.spawnUnit(type: type, team: team, aiBrain: aiBrain, at: tile)
     }
     
-    // MARK: REMOVE UNIT
     func removeUnit(_ unit: UnitNode) {
+        // logical removal
         units.removeValue(forKey: unit.unit.id)
-        //occupiedTiles.remove(unit.unit.position)
         gridManager.clearOccupancy(at: unit.unit.position)
-        unit.removeFromParent()
+        movement.clearReservation(for: unit)
+        
+        //visual removal
+        unit.die { }
     }
     
-    // MARK: MOVE UNIT
-    func moveUnit(_ unit: UnitNode, to tile: TileNode, duration: TimeInterval? = nil) {
-        let newPos = tile.tile.position
-        let oldPos = unit.unit.position
-                
-        // 1. VISUAL MOVE
-        unit.moveVisual(to: tile, duration: duration)
-        
-        // 2. LOGICAL MOVE (authoritative)
-        unit.unit.position = newPos
-        
-        // 3. UPDATE OCCUPANCY
-        gridManager.clearOccupancy(at: oldPos)
-        gridManager.registerOccupancy(id: unit.unit.id, pos: newPos)
-        //occupiedTiles.remove(oldPos)
-        //occupiedTiles.insert(newPos)
-        reservedTiles.remove(oldPos)
-        
-        // 4. CHECK FOR TRAPS
-        //obstacleManager.handleTrapInteraction(at: newPos, unit: unit)
-        
-        // 4. REMOVE FIRST STEP FROM PATH
-        if var path = unit.unit.currentPath, !path.isEmpty {
-            path.removeFirst()
-            unit.unit.currentPath = path
-        }
+    // MARK: - Update Loop
+    // Call this from Scene.update
+    func update(deltaTime: TimeInterval) {
+        // You can put per-frame logic here if needed,
+        // currently your ticks are handled via Actions in MovementSystem
     }
+
+    // MARK: - Shared Utilities (Public API)
     
-    // MARK: UTILITY FUNCTIONS
-    //check tile occupancy
-    func isTileOccupied(_ tile: TileNode) -> Bool {
-        return gridManager.occupiedTiles.contains(tile.tile.position)
-        //return occupiedTiles.contains(tile.tile.position)
-    }
-    
-    //find distance between two tiles
+    // Find distance between two tiles (Manhattan)
     func distance(from a: TilePosition, to b: TilePosition) -> Int {
-        return abs(a.row - b.row) + abs(a.col - b.col) // Manhattan distance
+        return abs(a.row - b.row) + abs(a.col - b.col)
     }
     
-    //return the specific unit standing on a tile
+    // Return the specific unit standing on a tile
     func unitAt(_ pos: TilePosition) -> UnitNode? {
         if let id = gridManager.entityAtTile[pos] {
             return units[id]
         }
         return nil
     }
+    
+    func isTileOccupied(_ tile: TileNode) -> Bool {
+        return gridManager.occupiedTiles.contains(tile.tile.position)
+    }
 }
-
