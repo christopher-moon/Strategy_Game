@@ -1,0 +1,30 @@
+{
+  "units": {
+    "Warrior": {
+      "maxHP": 10,
+      "attack": 3,
+      "attackSpeed": 3,
+      "range": 1,
+      "threatRange": 8,
+      "movementSpeed": 2,
+      "patternType": "melee"
+    },
+    "Archer": {
+      "maxHP": 10,
+      "attack": 1,
+      "attackSpeed": 5,
+      "range": 6,
+      "threatRange": 8,
+      "movementSpeed": 2,
+      "patternType": "projectile",
+      "projectileName": "bullet"
+    }
+  },
+  "obstacles": {
+    "Wall": {
+      "maxHP": 50,
+      "blocksMovement": true,
+      "attack": 0
+    }
+  }
+}

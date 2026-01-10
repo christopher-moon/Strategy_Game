@@ -1,12 +1,12 @@
 import SpriteKit
 
 class GameScene: SKScene {
-    
+    //map properties
     let rows = 23
     let cols = 15
     var tileSize = CGSize.zero
     let unitScale: CGFloat = 1.2
-
+    
     var gridNode = SKNode()
     var tiles = [[TileNode]]()
     
