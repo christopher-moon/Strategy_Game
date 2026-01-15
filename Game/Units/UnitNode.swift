@@ -1,5 +1,5 @@
 import SpriteKit
-
+/*
 class UnitNode: SKNode, AnimatableEntity {
     var unit: Unit
     let baseSize: CGSize
@@ -227,3 +227,4 @@ class UnitNode: SKNode, AnimatableEntity {
     }
     
 }
+*/

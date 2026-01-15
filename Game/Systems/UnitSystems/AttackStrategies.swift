@@ -1,5 +1,5 @@
 import SpriteKit
-
+/*
 protocol AttackStrategy {
     func execute(attacker: UnitNode, target: UnitNode, system: CombatSystem)
 }
@@ -79,3 +79,4 @@ struct TetherStrategy: AttackStrategy {
         system.applyDamage(to: target.unit.id, amount: attacker.unit.attack)
     }
 }
+*/

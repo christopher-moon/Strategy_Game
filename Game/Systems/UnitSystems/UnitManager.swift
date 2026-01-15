@@ -1,4 +1,5 @@
 //centralized manager for all logical unit information (movement, spawning, deleting, etc)
+/*
 import SpriteKit
 import Foundation
 
@@ -64,3 +65,4 @@ class UnitManager {
         return gridManager.occupiedTiles.contains(tile.tile.position)
     }
 }
+*/

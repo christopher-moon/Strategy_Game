@@ -1,4 +1,5 @@
 import SpriteKit
+/*
 
 class ObstacleNode: SKNode, AnimatableEntity {
     var obstacle: Obstacle
@@ -70,3 +71,4 @@ class ObstacleNode: SKNode, AnimatableEntity {
         ]))
     }
 }
+*/

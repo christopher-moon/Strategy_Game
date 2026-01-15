@@ -1,6 +1,6 @@
 import SpriteKit
 import Foundation
-
+/*
 struct BasicCombatAI: UnitAIBrain {
 
     func determineAction(for unit: UnitNode, manager: UnitManager) -> TilePosition? {
@@ -13,3 +13,4 @@ struct BasicCombatAI: UnitAIBrain {
         return moveTowardNearestObjective(for: unit, manager: manager)
     }
 }
+*/

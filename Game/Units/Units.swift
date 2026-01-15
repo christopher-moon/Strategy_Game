@@ -1,6 +1,6 @@
 import Foundation
 import CoreGraphics
-
+/*
 enum Team { case player, enemy }
 //enum UnitRole { case melee, objective }
 
@@ -47,3 +47,4 @@ struct Unit {
     var direction: String = "right"
 }
 
+*/

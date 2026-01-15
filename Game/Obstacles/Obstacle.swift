@@ -1,4 +1,5 @@
 //obstacle struct
+/*
 import Foundation
 
 enum ObstacleType {
@@ -30,3 +31,4 @@ struct Obstacle {
     //var direction: String = "vertical"
 }
 
+*/

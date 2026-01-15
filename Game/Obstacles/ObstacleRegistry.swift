@@ -1,5 +1,5 @@
 //registry of all different obstacle types
-
+/*
 //basic obstacle blueprint
 struct ObstacleBlueprint {
     let name: String
@@ -40,3 +40,4 @@ struct ObstacleRegistry {
     ]
     
 }
+*/

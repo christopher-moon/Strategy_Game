@@ -1,6 +1,6 @@
 import SpriteKit
 import Foundation
-
+/*
 struct ObjectiveRunnerAI: UnitAIBrain {
     let arrivalThreshold: Int = 3
 
@@ -60,3 +60,4 @@ struct ObjectiveRunnerAI: UnitAIBrain {
     // For now, this AI seems to just return TilePositions, so pushing (swapping)
     // might need to be a custom function in MovementSystem if you want to keep it.
 }
+*/

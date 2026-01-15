@@ -1,3 +1,4 @@
+/*
 import SpriteKit
 
 class GameScene: SKScene {
@@ -37,3 +38,4 @@ class GameScene: SKScene {
     
 }
 
+*/

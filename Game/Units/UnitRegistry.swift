@@ -1,5 +1,5 @@
 //registry of all different unit types
-
+/*
 //unit attack patterns
 enum AttackPattern {
     //single target, adjacent
@@ -86,3 +86,4 @@ struct UnitRegistry {
     ]
     
 }
+*/

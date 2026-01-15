@@ -1,0 +1,42 @@
+{
+  "units": {
+    "Warrior": {
+      "hp": 10,
+      "attack": 3,
+      "attackSpeed": 3,
+      "range": 1,
+      "threatRange": 8,
+      "movementSpeed": 2,
+      "patternType": "melee",
+      "aiType": "attacker"
+    },
+    "Tank": {
+      "hp": 15,
+      "attack": 3,
+      "attackSpeed": 3,
+      "range": 1,
+      "threatRange": 8,
+      "movementSpeed": 3,
+      "patternType": "melee",
+      "aiType": "objective"
+    },
+    "Archer": {
+      "hp": 10,
+      "attack": 1,
+      "attackSpeed": 5,
+      "range": 6,
+      "threatRange": 8,
+      "movementSpeed": 1,
+      "patternType": "projectile",
+      "projectileName": "bullet",
+      "aiType": "attacker"
+    }
+  },
+  "obstacles": {
+    "Mine": {
+      "hp": 10,
+      "movementCost": 200,
+      "attack": 100
+    }
+  }
+}
