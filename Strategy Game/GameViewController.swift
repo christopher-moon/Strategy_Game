@@ -9,7 +9,7 @@ class GameViewController: UIViewController {
         
         if let view = self.view as? SKView {
             // Create the GameScene programmatically
-            let scene = GameScene_MK2(size: view.bounds.size)
+            let scene = GameScene_MK3(size: view.bounds.size)
             scene.scaleMode = .resizeFill
             
             // Present the scene

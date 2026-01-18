@@ -1,5 +1,7 @@
-class AttackerBrain: AIBrain_MK2 {
-    func decide(owner: Entity_MK2, grid: Grid_MK2, entityManager: EntityManager_MK2) {
+
+class AttackerBrain: AIBrain_MK3 {
+    func decide(owner: Entity_MK3, grid: Grid_MK3, entityManager: EntityManager_MK3) {
+        /*
         guard let unit = owner as? Unit_MK2 else { return }
 
         // 1. Try to fight
@@ -12,5 +14,7 @@ class AttackerBrain: AIBrain_MK2 {
         }
         
         unit.state = .idle
+         */
     }
 }
+

@@ -1,42 +1,61 @@
 {
-  "units": {
+  "templates": {
     "Warrior": {
-      "hp": 10,
-      "attack": 3,
-      "attackSpeed": 3,
-      "range": 1,
-      "threatRange": 8,
-      "movementSpeed": 2,
-      "patternType": "melee",
+      "name": "Warrior",
+      "isImpassable": false,
+      "movementCost": 5,
+      "obeysReservation": true,
+      "health": { "hp": 10 },
+      "movement": { "speed": 2, "isFlying": false, "movementType": "smart" },
+      "combat": { "attack": 3, "attackSpeed": 3, "range": 1, "pattern": "single" },
       "aiType": "attacker"
     },
-    "Tank": {
-      "hp": 15,
-      "attack": 3,
-      "attackSpeed": 3,
-      "range": 1,
-      "threatRange": 8,
-      "movementSpeed": 3,
-      "patternType": "melee",
-      "aiType": "objective"
-    },
-    "Archer": {
-      "hp": 10,
-      "attack": 1,
-      "attackSpeed": 5,
-      "range": 6,
-      "threatRange": 8,
-      "movementSpeed": 1,
-      "patternType": "projectile",
-      "projectileName": "bullet",
+    "Runner": {
+      "name": "Runner",
+      "isImpassable": false,
+      "movementCost": 5,
+      "obeysReservation": true,
+      "health": { "hp": 10 },
+      "movement": { "speed": 1, "isFlying": false, "movementType": "smart" },
+      "combat": { "attack": 3, "attackSpeed": 3, "range": 1, "pattern": "single" },
       "aiType": "attacker"
-    }
-  },
-  "obstacles": {
+    },
+    "Flyer": {
+      "name": "Flyer",
+      "isImpassable": false,
+      "movementCost": 5,
+      "obeysReservation": true,
+      "health": { "hp": 10 },
+      "movement": { "speed": 2, "isFlying": true, "movementType": "smart" },
+      "combat": { "attack": 3, "attackSpeed": 3, "range": 1, "pattern": "single" },
+      "aiType": "attacker"
+    },
+    "SentryTurret": {
+      "name": "Sentry",
+      "obeysReservation": true,
+      "health": { "hp": 20 },
+      "combat": { "attack": 5, "attackSpeed": 10, "range": 5, "pattern": "single" },
+      "aiType": "attacker"
+    },
     "Mine": {
-      "hp": 10,
+      "name": "Mine",
+      "isImpassable": false,
       "movementCost": 200,
-      "attack": 100
+      "combat": { "attack": 50, "attackSpeed": 1, "range": 0, "pattern": "single" }
+    },
+    "Saw": {
+      "name": "Saw",
+      "isImpassable": false,
+      "movementCost": 1,
+      "movement": {"speed": 2,"isFlying": false, "movementType": "simple"},
+      "combat": { "attack": 50, "attackSpeed": 1, "range": 0, "pattern": "single" },
+      "aiType": "movingHazard"
+    },
+    "Stone": {
+      "name": "Stone",
+      "movementCost": 200,
+      "isImpassable": true,
+      "health": { "hp": 100 }
     }
   }
 }

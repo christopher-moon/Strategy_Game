@@ -2,6 +2,7 @@
  CombatSystem_MK2.swift
  Handles health reduction and attack timing
 */
+/*
 class CombatSystem_MK2 {
     func update(entityManager: EntityManager_MK2, grid: Grid_MK2) {
         for entity in entityManager.allEntities {
@@ -34,3 +35,4 @@ class CombatSystem_MK2 {
         }
     }
 }
+*/

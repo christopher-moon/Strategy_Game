@@ -1,13 +1,12 @@
-/*
- AISystem_MK2.swift:
- call ai brain decide
-*/
-class AISystem_MK2 {
-    func update(entityManager: EntityManager_MK2, grid: Grid_MK2) {
+/* AISystem_MK3.swift */
+
+class AISystem_MK3 {
+    func update(entityManager: EntityManager_MK3, grid: Grid_MK3) {
         for entity in entityManager.allEntities {
-            if let unit = entity as? Unit_MK2, let brain = unit.ai {
-                // Brain analyzes the grid and sets unit.currentPath or unit.state
-                brain.decide(owner: unit, grid: grid, entityManager: entityManager)
+            // Ensure the entity has a brain to think with
+            // (Assumes you added 'var ai: AIBrain_MK3?' to your Entity or Unit class)
+            if let brain = entity.ai {
+                brain.decide(owner: entity, grid: grid, entityManager: entityManager)
             }
         }
     }

@@ -2,6 +2,7 @@
  Follower.swift
  follower ai brain: most basic ai that has to be manually moved
 */
+/*
 class FollowerBrain: AIBrain_MK2 {
     var targetPosition: TilePosition?
     private var lastProcessedTarget: TilePosition?
@@ -25,3 +26,4 @@ class FollowerBrain: AIBrain_MK2 {
         }
     }
 }
+*/

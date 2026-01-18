@@ -15,6 +15,7 @@ struct EntityData: Codable {
     let col: Int
     let team: String?
     let ai: String?
+    let patrol: [TilePosition]?
 }
 
 // The master level structure

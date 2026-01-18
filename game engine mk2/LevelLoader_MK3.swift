@@ -1,12 +1,12 @@
 /*
- LevelLoader_MK2.swift:
+ LevelLoader_MK3.swift:
  load level data from .json file
 */
 import SpriteKit
 
-class LevelLoader_MK2 {
+class LevelLoader_MK3 {
     
-    static func load(data: LevelData, into grid: Grid_MK2, entityManager: EntityManager_MK2, scene: GameScene_MK2) {
+    static func load(data: LevelData, into grid: Grid_MK3, entityManager: EntityManager_MK3, scene: GameScene_MK3) {
         // 1. Initialize the Grid dimensions
         grid.setup(rows: data.rows, cols: data.cols)
         
@@ -37,10 +37,11 @@ class LevelLoader_MK2 {
             let team = Team(rawValue: e.team ?? "neutral") ?? .neutral
             
             // call entityFactory to spawn entities 
-            EntityFactory_MK2.spawn(
+            EntityFactory_MK3.spawn(
                 type: e.type,
                 at: pos,
                 team: team,
+                patrol: e.patrol,
                 grid: grid,
                 entityManager: entityManager,
                 scene: scene

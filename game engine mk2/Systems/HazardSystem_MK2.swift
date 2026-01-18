@@ -2,6 +2,7 @@
  HazardSystem_MK2.swift
  Handles interactions between Units and Obstacles
 */
+/*
 import Foundation
 
 class HazardSystem_MK2 {
@@ -41,3 +42,4 @@ class HazardSystem_MK2 {
         }
     }
 }
+*/

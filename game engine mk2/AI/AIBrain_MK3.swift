@@ -2,10 +2,12 @@
  AIBrain_MK2.swift
  define ai brain protocol
 */
-protocol AIBrain_MK2 {
-    func decide(owner: Entity_MK2, grid: Grid_MK2, entityManager: EntityManager_MK2)
+
+protocol AIBrain_MK3 {
+    func decide(owner: Entity_MK3, grid: Grid_MK3, entityManager: EntityManager_MK3)
 }
 
+/*
 extension AIBrain_MK2 {
     
     // ACTION: The "All-in-One" Combat Behavior
@@ -77,3 +79,4 @@ extension AIBrain_MK2 {
     }
 }
 
+*/

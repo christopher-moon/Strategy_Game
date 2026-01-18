@@ -4,7 +4,7 @@
 */
 import SpriteKit
 
-class MapManager_MK2 {
+class MapManager_MK3 {
     var gridOffsetX: CGFloat = 0
     var gridOffsetY: CGFloat = 0
     var tileSize: CGFloat = 0

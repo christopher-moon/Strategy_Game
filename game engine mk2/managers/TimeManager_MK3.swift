@@ -4,7 +4,7 @@
 */
 import Foundation
 
-class TimeManager_MK2 {
+class TimeManager_MK3 {
     private var tickCounter: TimeInterval = 0
     let tickRate: TimeInterval = 0.3
     
