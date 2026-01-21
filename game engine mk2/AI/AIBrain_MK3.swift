@@ -19,6 +19,7 @@ extension AIBrain_MK3 {
         }
         //optimization: Don't repath if already heading there
         if owner.state == .moving, owner.movement?.currentPath.last == target { return true }
+        
         //check if entity is a smart mover (A*) or simple mover (Linear)
         let type = owner.movement?.movementType ?? .smart
         //check if entity can fly

@@ -176,6 +176,28 @@ class Grid_MK3 {
         }
         return bestTarget
     }
+
+    func findNearestObjectiveNeighbor(at pos: TilePosition, canFly: Bool) -> TilePosition? {
+        let neighbors = getNeighbors(at: pos, canFly: canFly)
+        
+        for neighbor in neighbors {
+            let tile = tiles[neighbor.row][neighbor.col]
+            
+            // Is this neighbor tile part of the objective zone?
+            if tile.terrain == .objective || tile.isObjectiveZone {
+                let occupants = getOccupants(at: neighbor) ?? []
+                
+                // Is it physically clear?
+                let isOccupied = occupants.contains { $0.obeysReservation }
+                let isImpassable = occupants.contains { $0.isImpassable }
+                
+                if !isOccupied && !isImpassable {
+                    return neighbor
+                }
+            }
+        }
+        return nil
+    }
 }
 
 extension Grid_MK3 {

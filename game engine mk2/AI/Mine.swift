@@ -8,7 +8,6 @@ class MineBrain: AIBrain_MK3 {
             owner.combat?.currentTargetID = nil
             return
         }
-        
         /*
         
         // 2. PRESSURE LOGIC (.disabled)
@@ -47,5 +46,6 @@ class MineBrain: AIBrain_MK3 {
             }
         }
          */
+
     }
 }

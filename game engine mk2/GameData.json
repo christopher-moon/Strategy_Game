@@ -20,6 +20,12 @@
       "combat": { "attack": 3, "attackSpeed": 3, "range": 1, "threatRange": 8, "pattern": "single" },
       "aiType": "defender"
     },
+    "Bullet": {
+      "name": "Bullet",
+      "isImpassable": false,
+      "movementCost": 0,
+      "obeysReservation": false
+    },
     "Archer": {
       "name": "Archer",
       "isImpassable": false,
@@ -27,7 +33,7 @@
       "obeysReservation": true,
       "health": { "hp": 10 },
       "movement": { "speed": 2, "isFlying": false, "movementType": "smart" },
-      "combat": { "attack": 2, "attackSpeed": 3, "range": 5, "threatRange": 8, "pattern": "single" },
+      "combat": { "attack": 2, "attackSpeed": 3, "range": 5, "threatRange": 8, "pattern": "projectile:Bullet" },
       "aiType": "attacker"
     },
     "Runner": {

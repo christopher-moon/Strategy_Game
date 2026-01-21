@@ -23,6 +23,7 @@ enum MovementType: String, Codable {
 enum EntityState: Equatable {
     case spawning   // Initializing/Animation
     case idle       // Ready for action
+    case stuck      // path blocked by unit
     case alerted    // spotted enemy
     case moving     // Transitioning between tiles
     case attacking(targetID: UUID?) // Actively engaging
@@ -32,8 +33,9 @@ enum EntityState: Equatable {
 
 // Defines how damage is applied (Supports your Aura, Beam, Blast requirements)
 enum AttackPattern {
-    case singleTarget       // Standard hit
+    case singleTarget       // single target melee hit
     case aoe(radius: Int) // bombs, explosions, etc
+    case projectile(name: String)
 }
 
 // MARK: - The Container
@@ -58,12 +60,13 @@ class Entity_MK3 {
 
     
     // 3. Components (The "Modules")
-    var health: HealthComponent?       // Damageable
-    var movement: MovementComponent?   // Mobile
-    var combat: CombatComponent?       // Offensive
-    var status: StatusComponent?       // Buffs/Debuffs (NEW)
-    var lifecycle: LifecycleComponent? // Temporary (Projectiles/Effects)
-    var ai: AIBrain_MK3?               // Intelligence
+    var health: HealthComponent?         // Damageable
+    var movement: MovementComponent?     // Mobile
+    var combat: CombatComponent?         // Offensive
+    var projectile: ProjectileComponent? // Projectiles
+    var status: StatusComponent?         // Buffs/Debuffs (NEW)
+    var lifecycle: LifecycleComponent?   // Temporary (Projectiles/Effects)
+    var ai: AIBrain_MK3?                 // Intelligence
 
     init(name: String, team: Team, position: TilePosition) {
         self.name = name
@@ -158,5 +161,19 @@ class LifecycleComponent {
     init(ticks: Int, deathAnim: String? = nil) {
         self.ticksRemaining = ticks
         self.deathAnimation = deathAnim
+    }
+}
+
+class ProjectileComponent {
+    var targetID: UUID
+    var screenPosition: CGPoint
+    var speed: CGFloat // Points per second
+    var damage: Int
+    
+    init(targetID: UUID, screenPosition: CGPoint, speed: CGFloat = 400.0, damage: Int) {
+        self.targetID = targetID
+        self.screenPosition = screenPosition
+        self.speed = speed
+        self.damage = damage
     }
 }

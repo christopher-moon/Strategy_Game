@@ -57,16 +57,46 @@ class MovementSystem_MK3 {
             //check if there is a unit (entity with obeysReservation == true) blocking movement
             if entity.obeysReservation {
                 if let reserverID = reservedTiles[nextStep], reserverID != entity.id {
-                    //increment wait timer because we are physically blocked
                     movement.waitTimer += 1
-                    //after waiting 4 ticks for the blocker to go away
-                    if movement.waitTimer >= 4 {
+                    
+                    if movement.waitTimer >= 5 {
                         movement.waitTimer = 0
-                        //clear the bad path
-                        movement.currentPath.removeAll()
-                        //force state out of .moving to .idle
-                        entity.state = .idle
-                        print("\(entity.name) is stuck, requesting re-path")
+                        
+                        if let blocker = entityManager.allEntities.first(where: { $0.id == reserverID }) {
+                            
+                            // 1. Get tile info for the blocked spot
+                            let targetTile = grid.tiles[nextStep.row][nextStep.col]
+                            let isObjectivePush = targetTile.terrain == .objective || targetTile.isObjectiveZone
+
+                            // 2. Identify the blocker's situation
+                            let isEnemy = blocker.team != entity.team
+                            let isAttacking: Bool
+                            if case .attacking = blocker.state { isAttacking = true } else { isAttacking = false }
+
+                            // 3. THE NEW REFINED PUSH RULES:
+                            // Only push if: It's an objective AND it's a teammate AND they aren't busy attacking
+                            if isObjectivePush && !isEnemy && !isAttacking {
+                                
+                                // 4. Find a neighbor that is ALSO an objective tile and is empty
+                                if let escapeTile = grid.findNearestObjectiveNeighbor(at: blocker.position, canFly: blocker.movement?.isFlying ?? false) {
+                                    
+                                    grid.moveEntity(blocker, from: blocker.position, to: escapeTile)
+                                    
+                                    reservedTiles.removeValue(forKey: nextStep)
+                                    reservedTiles[escapeTile] = blocker.id
+                                    
+                                    blocker.movement?.currentPath.removeAll()
+                                    blocker.state = .idle
+                                    print("Strategic nudge: \(entity.name) swapped \(blocker.name) to a nearby objective tile.")
+                                } else {
+                                    entity.state = .stuck
+                                }
+                            } else {
+                                // If not an objective zone, or blocker is an enemy/attacking: just detour
+                                entity.state = .stuck
+                                print("\(entity.name) is yielding to \(blocker.name) (Non-objective or busy).")
+                            }
+                        }
                     }
                     continue
                 }

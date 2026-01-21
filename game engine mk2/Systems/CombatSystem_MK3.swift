@@ -80,4 +80,20 @@ class CombatSystem_MK3 {
         
         return isDead
     }
+
+    // NEW Helper Function
+    private func spawnProjectile(from: Entity_MK3, to: Entity_MK3, entityManager: EntityManager_MK3) {
+        // 1. Create a generic projectile entity (Not on the grid!)
+        let arrow = Entity_MK3(name: "Arrow", team: from.team, position: from.position)
+        
+        // 2. We use a placeholder screen pos (System will update this immediately)
+        arrow.projectile = ProjectileComponent(
+            targetID: to.id,
+            screenPosition: .zero, // System will sync this to the attacker's node
+            speed: 450.0,
+            damage: from.combat?.attack ?? 1
+        )
+        
+        entityManager.addEntity(arrow)
+    }
 }

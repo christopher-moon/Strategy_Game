@@ -16,6 +16,7 @@ struct EntityBlueprint_MK3: Codable {
     let health: HealthBlueprint?
     let movement: MovementBlueprint?
     let combat: CombatBlueprint?
+    let projectile: ProjectileBlueprint?
     let aiType: String?
 }
 
@@ -36,6 +37,13 @@ struct CombatBlueprint: Codable {
     let threatRange: Int?
     let pattern: String // "single", "aoe"
     let selfDestruct: Bool?
+}
+
+struct ProjectileBlueprint: Codable {
+    let targetID: UUID
+    let screenPosition: CGPoint
+    let speed: CGFloat
+    let damage: Int
 }
 
 struct GameDataContainer_MK3: Codable {

@@ -21,10 +21,12 @@ class GameScene_MK3: SKScene {
     override func didMove(to view: SKView) {
         setupScene()
     }
+
     
     func setupScene() {
         // 1. Clear everything (Safety for level transitions)
         clearLevel()
+        
         
         // 2. Setup Layout
         mapManager.setupLayout(screenSize: self.size, rows: 23, cols: 15)
@@ -74,7 +76,7 @@ class GameScene_MK3: SKScene {
             
             //fight/interact
             combatSystem.update(entityManager: entityManager, grid: grid)
-            
+                        
             // cleanup (Now handles HP, Lifecycle timers, and 'Dead' state)
             entityManager.cleanup(grid: grid, scene: self)
             
@@ -137,7 +139,7 @@ class GameScene_MK3: SKScene {
         // 4. Spawn the Warrior
         // Note: Ensure "warrior" exists in your Library_MK3 templates
         EntityFactory_MK3.spawn(
-            type: "Warrior",
+            type: "Runner",
             at: targetPos,
             team: .player,
             grid: grid,

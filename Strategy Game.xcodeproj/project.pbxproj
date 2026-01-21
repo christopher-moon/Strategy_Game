@@ -20,11 +20,9 @@
 		6539C5FE2F14D0AF00B17DC9 /* TimeManager_MK3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6539C5FD2F14D0AF00B17DC9 /* TimeManager_MK3.swift */; };
 		6539C6002F14D0D000B17DC9 /* MapManager_MK3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6539C5FF2F14D0D000B17DC9 /* MapManager_MK3.swift */; };
 		6539C6022F15840A00B17DC9 /* testlevel2.json in Resources */ = {isa = PBXBuildFile; fileRef = 6539C6012F15840A00B17DC9 /* testlevel2.json */; };
-		6539C6042F15AF0E00B17DC9 /* HazardSystem_MK2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6539C6032F15AF0E00B17DC9 /* HazardSystem_MK2.swift */; };
 		6539C6092F160C6700B17DC9 /* MovementSystem_MK3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6539C6082F160C6700B17DC9 /* MovementSystem_MK3.swift */; };
 		6539C60B2F185E7B00B17DC9 /* AIBrain_MK3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6539C60A2F185E7B00B17DC9 /* AIBrain_MK3.swift */; };
 		6539C60D2F18604400B17DC9 /* AISystem_MK2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6539C60C2F18604400B17DC9 /* AISystem_MK2.swift */; };
-		6539C6102F186D1900B17DC9 /* Follower.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6539C60F2F186D1900B17DC9 /* Follower.swift */; };
 		6539C6122F18732900B17DC9 /* Objective.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6539C6112F18732900B17DC9 /* Objective.swift */; };
 		6539C6142F18759400B17DC9 /* Attacker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6539C6132F18759400B17DC9 /* Attacker.swift */; };
 		6539C6192F18848F00B17DC9 /* CombatSystem_MK3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6539C6182F18848F00B17DC9 /* CombatSystem_MK3.swift */; };
@@ -41,6 +39,7 @@
 		6539C6332F201AAA00B17DC9 /* testlevel3.json in Resources */ = {isa = PBXBuildFile; fileRef = 6539C6322F201AAA00B17DC9 /* testlevel3.json */; };
 		6539C6352F2061F200B17DC9 /* testlevel4.json in Resources */ = {isa = PBXBuildFile; fileRef = 6539C6342F2061F200B17DC9 /* testlevel4.json */; };
 		6539C6372F206A4100B17DC9 /* Defender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6539C6362F206A4100B17DC9 /* Defender.swift */; };
+		6539C6392F209DAF00B17DC9 /* ProjectileSystem_MK3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6539C6382F209DAF00B17DC9 /* ProjectileSystem_MK3.swift */; };
 		653F63E02ECD70FA00B2C014 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653F63DF2ECD70FA00B2C014 /* AppDelegate.swift */; };
 		653F63E22ECD70FA00B2C014 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 653F63E12ECD70FA00B2C014 /* GameScene.sks */; };
 		653F63E42ECD70FA00B2C014 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 653F63E32ECD70FA00B2C014 /* Actions.sks */; };
@@ -122,11 +121,9 @@
 		6539C5FD2F14D0AF00B17DC9 /* TimeManager_MK3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeManager_MK3.swift; sourceTree = "<group>"; };
 		6539C5FF2F14D0D000B17DC9 /* MapManager_MK3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapManager_MK3.swift; sourceTree = "<group>"; };
 		6539C6012F15840A00B17DC9 /* testlevel2.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testlevel2.json; sourceTree = "<group>"; };
-		6539C6032F15AF0E00B17DC9 /* HazardSystem_MK2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HazardSystem_MK2.swift; sourceTree = "<group>"; };
 		6539C6082F160C6700B17DC9 /* MovementSystem_MK3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovementSystem_MK3.swift; sourceTree = "<group>"; };
 		6539C60A2F185E7B00B17DC9 /* AIBrain_MK3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIBrain_MK3.swift; sourceTree = "<group>"; };
 		6539C60C2F18604400B17DC9 /* AISystem_MK2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AISystem_MK2.swift; sourceTree = "<group>"; };
-		6539C60F2F186D1900B17DC9 /* Follower.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Follower.swift; sourceTree = "<group>"; };
 		6539C6112F18732900B17DC9 /* Objective.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Objective.swift; sourceTree = "<group>"; };
 		6539C6132F18759400B17DC9 /* Attacker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attacker.swift; sourceTree = "<group>"; };
 		6539C6182F18848F00B17DC9 /* CombatSystem_MK3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombatSystem_MK3.swift; sourceTree = "<group>"; };
@@ -143,6 +140,7 @@
 		6539C6322F201AAA00B17DC9 /* testlevel3.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testlevel3.json; sourceTree = "<group>"; };
 		6539C6342F2061F200B17DC9 /* testlevel4.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testlevel4.json; sourceTree = "<group>"; };
 		6539C6362F206A4100B17DC9 /* Defender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defender.swift; sourceTree = "<group>"; };
+		6539C6382F209DAF00B17DC9 /* ProjectileSystem_MK3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectileSystem_MK3.swift; sourceTree = "<group>"; };
 		653F63DC2ECD70FA00B2C014 /* Strategy Game.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Strategy Game.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		653F63DF2ECD70FA00B2C014 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		653F63E12ECD70FA00B2C014 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -264,11 +262,11 @@
 		6539C6072F16052D00B17DC9 /* Systems */ = {
 			isa = PBXGroup;
 			children = (
-				6539C6032F15AF0E00B17DC9 /* HazardSystem_MK2.swift */,
 				6539C5FB2F14BE0E00B17DC9 /* EntityFactory_MK3.swift */,
 				6539C6082F160C6700B17DC9 /* MovementSystem_MK3.swift */,
 				6539C60C2F18604400B17DC9 /* AISystem_MK2.swift */,
 				6539C6182F18848F00B17DC9 /* CombatSystem_MK3.swift */,
+				6539C6382F209DAF00B17DC9 /* ProjectileSystem_MK3.swift */,
 			);
 			path = Systems;
 			sourceTree = "<group>";
@@ -277,7 +275,6 @@
 			isa = PBXGroup;
 			children = (
 				6539C60A2F185E7B00B17DC9 /* AIBrain_MK3.swift */,
-				6539C60F2F186D1900B17DC9 /* Follower.swift */,
 				6539C6112F18732900B17DC9 /* Objective.swift */,
 				6539C6132F18759400B17DC9 /* Attacker.swift */,
 				6539C61A2F1B310E00B17DC9 /* MovingHazard.swift */,
@@ -649,6 +646,7 @@
 				6539C62F2F1D767300B17DC9 /* Mine.swift in Sources */,
 				653F63E62ECD70FA00B2C014 /* GameScene.swift in Sources */,
 				653F644F2EF1033200B2C014 /* ObjectiveUnitAI.swift in Sources */,
+				6539C6392F209DAF00B17DC9 /* ProjectileSystem_MK3.swift in Sources */,
 				6539C61D2F1C107F00B17DC9 /* EntityNode_MK3.swift in Sources */,
 				653F64302ED0233000B2C014 /* DeckScene.swift in Sources */,
 				653F63E82ECD70FA00B2C014 /* GameViewController.swift in Sources */,
@@ -670,12 +668,10 @@
 				6539C61B2F1B310E00B17DC9 /* MovingHazard.swift in Sources */,
 				653F64942F10A38500B2C014 /* Level.swift in Sources */,
 				6539C5EA2F11DC4D00B17DC9 /* Blueprints_MK3.swift in Sources */,
-				6539C6042F15AF0E00B17DC9 /* HazardSystem_MK2.swift in Sources */,
 				653F64572F0A394000B2C014 /* ProjectileNode.swift in Sources */,
 				6539C5F42F11E67300B17DC9 /* Grid_MK3.swift in Sources */,
 				6539C60D2F18604400B17DC9 /* AISystem_MK2.swift in Sources */,
 				6539C6092F160C6700B17DC9 /* MovementSystem_MK3.swift in Sources */,
-				6539C6102F186D1900B17DC9 /* Follower.swift in Sources */,
 				653F63E02ECD70FA00B2C014 /* AppDelegate.swift in Sources */,
 				6539C5FE2F14D0AF00B17DC9 /* TimeManager_MK3.swift in Sources */,
 				653F642A2ECD889900B2C014 /* Tile.swift in Sources */,

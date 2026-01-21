@@ -35,6 +35,15 @@ class EntityFactory_MK3 {
             )
         }
         
+        if let pData = bp.projectile {
+            entity.projectile = ProjectileComponent(
+                targetID: pData.targetID,
+                screenPosition: pData.screenPosition,
+                speed: pData.speed,
+                damage: pData.damage
+            )
+        }
+        
         if let aiName = bp.aiType {
             entity.ai = resolveBrain(type: aiName)
         }
@@ -56,10 +65,33 @@ class EntityFactory_MK3 {
         
     }
     
-    private static func resolvePattern(_ str: String) -> AttackPattern {
-        switch str {
-        case "aoe": return .aoe(radius: 1)
-        default: return .singleTarget
+    /* EntityFactory_MK3.swift */
+
+    static func resolvePattern(_ patternString: String) -> AttackPattern {
+        // 1. Handle cases like "aoe:2"
+        if patternString.contains("aoe:") {
+            let parts = patternString.components(separatedBy: ":")
+            if parts.count > 1, let radius = Int(parts[1]) {
+                return .aoe(radius: radius)
+            }
+        }
+        
+        // 2. Handle cases like "projectile:Arrow"
+        if patternString.contains("projectile:") {
+            let parts = patternString.components(separatedBy: ":")
+            if parts.count > 1 {
+                let projectileName = parts[1]
+                return .projectile(name: projectileName)
+            }
+        }
+        
+        // 3. Simple cases
+        switch patternString.lowercased() {
+        case "single", "singletarget":
+            return .singleTarget
+        default:
+            print("Warning: Unknown pattern '\(patternString)', defaulting to singleTarget")
+            return .singleTarget
         }
     }
     

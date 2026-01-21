@@ -49,6 +49,7 @@ class AttackerBrain: AIBrain_MK3 {
             return
         }
         
+        // 4. PRIORITY 3: IDLE 
         owner.state = .idle
     }
 }
