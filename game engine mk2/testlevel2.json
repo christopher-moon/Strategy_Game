@@ -34,7 +34,7 @@
   ],
   "entities": [
     { "type": "Warrior", "row": 21, "col": 13, "team": "player" },
-    { "type": "Flyer", "row": 22, "col": 13, "team": "player" },
+    { "type": "Runner", "row": 22, "col": 13, "team": "player" },
     { "type": "Runner", "row": 14, "col": 10, "team": "enemy" },
     { "type": "Mine", "row": 20, "col": 0, "team": "neutral" },
     { "type": "Mine", "row": 20, "col": 1, "team": "neutral" },
@@ -51,8 +51,8 @@
     { "type": "Mine", "row": 20, "col": 12, "team": "neutral" },
     { "type": "Mine", "row": 20, "col": 13, "team": "neutral" },
     { "type": "Mine", "row": 17, "col": 12, "team": "neutral" },
-    { "type": "Saw", "row": 17, "col": 11, "team": "neutral", "patrol": [ { "row": 17, "col": 11 }, { "row": 17, "col": 0 }, { "row": 6, "col": 0 }] },
+    { "type": "Saw", "row": 17, "col": 11, "team": "neutral", "patrol": [ { "row": 17, "col": 11 }, { "row": 17, "col": 0 }, { "row": 6, "col": 0 }, { "row": 6, "col": 11 }] },
     { "type": "Stone", "row": 16, "col": 10, "team": "neutral" },
-    { "type": "Mine", "row": 17, "col": 9, "team": "neutral" }
+    { "type": "Stone", "row": 17, "col": 9, "team": "neutral" }
   ]
 }

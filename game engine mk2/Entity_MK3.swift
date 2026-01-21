@@ -46,7 +46,7 @@ class Entity_MK3 {
     var position: TilePosition
     
     // The "Brain" of the entity state
-    var state: EntityState = .idle
+    var state: EntityState = .spawning
     
     // 2. Grid Physics (Base Layer)
     var movementCost: Int = 5
@@ -110,6 +110,7 @@ class CombatComponent {
     // Stats
     var attack: Int
     var attackSpeed: Int
+    var threatRange: Int
     var range: Int
     
     // NEW: Defines "How" it hits (Beam, Blast, etc)
@@ -119,11 +120,16 @@ class CombatComponent {
     var internalAttackCounter: Int = 0
     var currentTargetID: UUID?
     
-    init(attack: Int, attackSpeed: Int, range: Int, pattern: AttackPattern = .singleTarget) {
+    //track if entity should destroy itself after attacking
+    var selfDestruct: Bool = false
+    
+    init(attack: Int, attackSpeed: Int, range: Int, threatRange: Int = 1, pattern: AttackPattern = .singleTarget, selfDestruct: Bool) {
         self.attack = attack
         self.attackSpeed = attackSpeed
         self.range = range
+        self.threatRange = threatRange
         self.attackPattern = pattern
+        self.selfDestruct = selfDestruct
     }
 }
 

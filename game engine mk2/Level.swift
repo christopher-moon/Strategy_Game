@@ -23,7 +23,8 @@ struct LevelData: Codable {
     let name: String
     let rows: Int
     let cols: Int
-    let tiles: [TileData]
-    let entities: [EntityData]
+    let layout: [String]?
+    let tiles: [TileData]?
+    let entities: [EntityData]?
 }
 

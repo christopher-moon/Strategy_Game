@@ -33,7 +33,9 @@ struct CombatBlueprint: Codable {
     let attack: Int
     let attackSpeed: Int
     let range: Int
+    let threatRange: Int?
     let pattern: String // "single", "aoe"
+    let selfDestruct: Bool?
 }
 
 struct GameDataContainer_MK3: Codable {

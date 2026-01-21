@@ -16,7 +16,7 @@ class GameScene_MK3: SKScene {
     // Systems (These will need to be updated to handle Entity_MK3 soon)
     let aiSystem = AISystem_MK3()
     let movementSystem = MovementSystem_MK3()
-    //let combatSystem = CombatSystem_MK3()
+    let combatSystem = CombatSystem_MK3()
     
     override func didMove(to view: SKView) {
         setupScene()
@@ -30,7 +30,7 @@ class GameScene_MK3: SKScene {
         mapManager.setupLayout(screenSize: self.size, rows: 23, cols: 15)
         
         // 3. Load Level via MK3 Loader
-        if let levelData = LevelManager.loadLevel(fileName: "testlevel2") {
+        if let levelData = LevelManager.loadLevel(fileName: "testlevel4") {
             LevelLoader_MK3.load(
                 data: levelData,
                 into: grid,
@@ -73,7 +73,7 @@ class GameScene_MK3: SKScene {
             movementSystem.update(entityManager: entityManager, grid: grid)
             
             //fight/interact
-            //combatSystem.update(entityManager: entityManager, grid: grid)
+            combatSystem.update(entityManager: entityManager, grid: grid)
             
             // cleanup (Now handles HP, Lifecycle timers, and 'Dead' state)
             entityManager.cleanup(grid: grid, scene: self)
@@ -118,30 +118,33 @@ class GameScene_MK3: SKScene {
         // 1. Convert Screen Point -> Grid Tile
         let targetPos = mapManager.calculateGridPos(location)
         
-        // 2. Security Check: Is the tile valid and walkable?
-        //guard !grid.isImpassable(at: targetPos) else {
-            //print("Tapped a wall/blocked tile!")
-            //return
-        //}
+        // 2. Check Static Terrain (Walls/Out of bounds)
+        // We pass canFly: false because warriors are ground units
+        guard !grid.isImpassable(at: targetPos) else {
+            print("Spawn Failed: Tile is a wall or out of bounds.")
+            return
+        }
         
-        // 3. Command all Player units to move there
-        for entity in entityManager.allEntities {
-            // Ensure they are capable of moving
-            guard let moveComp = entity.movement, moveComp.movementType != .simple else { continue }
-            
-            // Use your MK3 Pathfinding to find a route
-            let newPath = Pathfinding_MK3.findPath(
-                from: entity.position,
-                to: targetPos,
-                grid: grid,
-                canFly: moveComp.isFlying
-            )
-            
-            if !newPath.isEmpty {
-                moveComp.currentPath = newPath
-                entity.state = .moving // Set state so MovementSystem picks it up
-                print("Unit \(entity.name) moving to \(targetPos)")
+        // 3. Check Dynamic Occupants (Other Units/Buildings)
+        if let occupants = grid.getOccupants(at: targetPos) {
+            let isReserved = occupants.contains { $0.obeysReservation }
+            if isReserved {
+                print("Spawn Failed: Tile is occupied by an entity with reservation logic.")
+                return
             }
         }
+        
+        // 4. Spawn the Warrior
+        // Note: Ensure "warrior" exists in your Library_MK3 templates
+        EntityFactory_MK3.spawn(
+            type: "Warrior",
+            at: targetPos,
+            team: .player,
+            grid: grid,
+            entityManager: entityManager,
+            scene: self
+        )
+        
+        print("Spawned Warrior at \(targetPos)")
     }
 }

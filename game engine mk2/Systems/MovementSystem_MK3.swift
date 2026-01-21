@@ -7,24 +7,24 @@ class MovementSystem_MK3 {
     func update(entityManager: EntityManager_MK3, grid: Grid_MK3) {
         reservedTiles.removeAll()
         
-        // 1. Reserve current positions for all "unit type" (obeysReservation) entities
+        //reserve current positions for all "unit type" (obeysReservation) entities
         for entity in entityManager.allEntities where entity.obeysReservation == true {
             reservedTiles[entity.position] = entity.id
         }
 
-        // 2. Process Movers
+        //process movers (state == .moving)
         for entity in entityManager.allEntities {
-            // MovementSystem only cares if you are ALREADY in the .moving state
+            //check if entity has a movement component and state == .moving
             guard let movement = entity.movement, entity.state == .moving else { continue }
             
-            // Handle Movement Speed
+            //handle movement speed
             movement.internalTickCounter += 1
             if movement.internalTickCounter < movement.speed { continue }
             
-            // Do they have a path?
+            //ensure the entity has a valid path to move along
             guard let nextStep = movement.currentPath.first else { continue }
             
-            // --- SIMPLE OVERRIDE (Hazards/Projectiles) ---
+            //if the entity is a simple mover (linear movement), it ignores collision physics
             if movement.movementType == .simple {
                 executeMove(entity: entity, moveComp: movement, to: nextStep, grid: grid)
                 movement.internalTickCounter = 0
@@ -33,43 +33,46 @@ class MovementSystem_MK3 {
             
             // --- SMART PHYSICS CHECKS (Standard Units) ---
             
-            // A. Grid/Wall Check
-            if grid.isImpassable(at: nextStep, canFly: movement.isFlying) {
+            //check if there is a wall tile or out of bounds area blocking movement
+            if grid.isImpassable(at: nextStep) {
                 movement.internalTickCounter = movement.speed
                 continue
             }
             
-            // B. Occupant/Impassable Check
+            //check if there is a destructable obstacle (entity with isImpassible == true) blocking movement
             if let occupants = grid.getOccupants(at: nextStep) {
+                //flyers can bypass obstacles
                 if occupants.contains(where: { $0.isImpassable }) && !movement.isFlying {
                     movement.internalTickCounter = movement.speed
-                    print("unit blocked by impassible stone, start trying to break stone")
-                    // If your combat system needs a specific target ID:
+                    print("unit blocked by impassible entity, start trying to break blocker")
+                    // start breaking the obstacle
                     if let stone = occupants.first(where: { $0.isImpassable }) {
+                        //movement.currentPath.removeAll()
                         entity.state = .attacking(targetID: stone.id)
                     }
-                    //entity.state = .attacking(stone)
                     continue
                 }
             }
             
-            // C. Reservation Check
+            //check if there is a unit (entity with obeysReservation == true) blocking movement
             if entity.obeysReservation {
                 if let reserverID = reservedTiles[nextStep], reserverID != entity.id {
-                    // Increment wait timer because we are physically blocked
+                    //increment wait timer because we are physically blocked
                     movement.waitTimer += 1
-                                
-                    if movement.waitTimer >= 4 { // "I've waited long enough"
+                    //after waiting 4 ticks for the blocker to go away
+                    if movement.waitTimer >= 4 {
                         movement.waitTimer = 0
-                        movement.currentPath.removeAll() // Clear the bad path
-                        entity.state = .idle // Force the Brain to find a new way
+                        //clear the bad path
+                        movement.currentPath.removeAll()
+                        //force state out of .moving to .idle
+                        entity.state = .idle
                         print("\(entity.name) is stuck, requesting re-path")
                     }
                     continue
                 }
             }
             
-            // --- EXECUTE MOVE ---
+            //if all checks pass, execute move
             executeMove(entity: entity, moveComp: movement, to: nextStep, grid: grid)
             movement.internalTickCounter = 0
             movement.waitTimer = 0

@@ -29,7 +29,9 @@ class EntityFactory_MK3 {
                 attack: cData.attack,
                 attackSpeed: cData.attackSpeed,
                 range: cData.range,
-                pattern: resolvePattern(cData.pattern)
+                threatRange: cData.threatRange ?? 0,
+                pattern: resolvePattern(cData.pattern),
+                selfDestruct: cData.selfDestruct ?? false
             )
         }
         
@@ -66,8 +68,12 @@ class EntityFactory_MK3 {
         switch type {
         case "attacker":
             return AttackerBrain()
+        case "defender":
+            return DefenderBrain()
         case "movingHazard":
             return MovingHazardBrain()
+        case "mine":
+            return MineBrain()
         default:
             return AttackerBrain()
         }
