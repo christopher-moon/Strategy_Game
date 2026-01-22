@@ -38,10 +38,10 @@ class LevelLoader_MK3 {
                     visualizeTerrain(.objective, at: pos, scene: scene)
                     
                 case "S": // Stone Entity (Neutral)
-                    EntityFactory_MK3.spawn(type: "Stone", at: pos, team: .neutral, patrol: nil, grid: grid, entityManager: entityManager, scene: scene)
+                    EntityFactory_MK3.spawn(type: "Stone", at: pos, team: .neutral, patrol: nil, grid: grid, entityManager: entityManager)
                     
                 case "M": // Mine
-                    EntityFactory_MK3.spawn(type: "Mine", at: pos, team: .neutral, patrol: nil, grid: grid, entityManager: entityManager, scene: scene)
+                    EntityFactory_MK3.spawn(type: "Mine", at: pos, team: .neutral, patrol: nil, grid: grid, entityManager: entityManager)
                     
                 default:
                     // Everything else (like ".") stays as .ground terrain
@@ -68,7 +68,7 @@ class LevelLoader_MK3 {
             for e in entities {
                 let pos = TilePosition(row: e.row, col: e.col)
                 let team = Team(rawValue: e.team ?? "neutral") ?? .neutral
-                EntityFactory_MK3.spawn(type: e.type, at: pos, team: team, patrol: e.patrol, grid: grid, entityManager: entityManager, scene: scene)
+                EntityFactory_MK3.spawn(type: e.type, at: pos, team: team, patrol: e.patrol, grid: grid, entityManager: entityManager)
             }
         }
     }

@@ -3,7 +3,8 @@ import SpriteKit
 
 class EntityFactory_MK3 {
     
-    static func spawn(type: String, at pos: TilePosition, team: Team, patrol: [TilePosition]? = nil, grid: Grid_MK3, entityManager: EntityManager_MK3, scene: GameScene_MK3){
+    //spawns a logical entity (no visuals)
+    static func spawn(type: String, at pos: TilePosition, team: Team, patrol: [TilePosition]? = nil, grid: Grid_MK3, entityManager: EntityManager_MK3){
         // 1. Get the Blueprint
         guard let bp = Library_MK3.shared.templates[type] else { return }
         
@@ -52,21 +53,15 @@ class EntityFactory_MK3 {
             entity.patrolPoints = patrolData
         }
         
-        // 5. Link Visuals
-        let visualNode = EntityNode_MK3(entity: entity, size: scene.mapManager.tileSize)
-        visualNode.position = scene.mapManager.calculateScreenPos(pos)
-        scene.addChild(visualNode)
-        scene.visualNodes[entity.id] = visualNode
         
-        // 6. Register with Grid & Manager
+        // 5. Register with Grid & Manager
         entityManager.addEntity(entity)
         
         grid.addEntity(entity)
         
     }
     
-    /* EntityFactory_MK3.swift */
-
+    //resolve attack pattern
     static func resolvePattern(_ patternString: String) -> AttackPattern {
         // 1. Handle cases like "aoe:2"
         if patternString.contains("aoe:") {
@@ -95,6 +90,7 @@ class EntityFactory_MK3 {
         }
     }
     
+    //resolve ai brain type
     private static func resolveBrain(type: String) -> AIBrain_MK3 {
         // Your existing brain resolution logic here...
         switch type {

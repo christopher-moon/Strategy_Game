@@ -53,26 +53,35 @@ class EntityNode_MK3: SKNode {
 
     // --- YOUR LERP LOGIC LIVES HERE NOW ---
     func update(entity: Entity_MK3, targetPoint: CGPoint, deltaTime: TimeInterval) {
-        // 1. Move logic (The Lerp)
-        // Your exact math: Move 10% of remaining distance * speed * delta
-        let speed: CGFloat = 10.0
-        let newX = self.position.x + (targetPoint.x - self.position.x) * speed * CGFloat(deltaTime)
-        let newY = self.position.y + (targetPoint.y - self.position.y) * speed * CGFloat(deltaTime)
-        self.position = CGPoint(x: newX, y: newY)
-        
-        // 2. Flip logic
-        if let moveComp = entity.movement {
-            sprite.xScale = (moveComp.direction == .right) ? 1.0 : -1.0
+
+        if let proj = entity.projectile {
+           
+            
+        } else {
+            // 1. Move logic (The Lerp)
+            // Your exact math: Move 10% of remaining distance * speed * delta
+            let speed: CGFloat = 10.0
+            let newX = self.position.x + (targetPoint.x - self.position.x) * speed * CGFloat(deltaTime)
+            let newY = self.position.y + (targetPoint.y - self.position.y) * speed * CGFloat(deltaTime)
+            self.position = CGPoint(x: newX, y: newY)
+            
+            // 2. Flip logic
+            if let moveComp = entity.movement {
+                sprite.xScale = (moveComp.direction == .right) ? 1.0 : -1.0
+            }
+            
         }
+        
         
         // Apply Global Y-Sorting
         // Determine the correct base
         var base = ZManager.world
             
-        if entity.movement?.isFlying == true {
+        if entity.projectile != nil {
+            base = ZManager.projectile // Uses the highest layer (7000)
+        } else if entity.movement?.isFlying == true {
             base = ZManager.flying
         } else if entity.movement == nil {
-            // Force floor objects to a lower Z-Layer
             base = ZManager.floorHazard
         }
 

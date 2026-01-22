@@ -91,10 +91,10 @@ class GameScene_MK3: SKScene {
             let targetPoint = mapManager.calculateScreenPos(entity.position)
             
             if let node = visualNodes[entity.id] {
-                // Hand the data to the node. The Entity remains 100% logic-only.
+                //hand the data to the node. The Entity remains 100% logic-only.
                 node.update(entity: entity, targetPoint: targetPoint, deltaTime: deltaTime)
             } else {
-                // If it's a new entity (like a spawned projectile), make a node
+                //if it's a new entity without a visual node yet, make a node
                 let newNode = EntityNode_MK3(entity: entity, size: mapManager.tileSize)
                 newNode.position = targetPoint // Start it at the right spot
                 self.addChild(newNode)
@@ -113,6 +113,7 @@ class GameScene_MK3: SKScene {
         }
         cameraNode.run(SKAction.sequence([shake, SKAction.move(to: .zero, duration: 0.05)]))
     }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
         let location = touch.location(in: self)
@@ -139,12 +140,11 @@ class GameScene_MK3: SKScene {
         // 4. Spawn the Warrior
         // Note: Ensure "warrior" exists in your Library_MK3 templates
         EntityFactory_MK3.spawn(
-            type: "Runner",
+            type: "Warrior",
             at: targetPos,
             team: .player,
             grid: grid,
-            entityManager: entityManager,
-            scene: self
+            entityManager: entityManager
         )
         
         print("Spawned Warrior at \(targetPos)")

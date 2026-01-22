@@ -27,5 +27,11 @@ class MapManager_MK3 {
         self.tileSize = min(screenSize.width / CGFloat(cols + 2), screenSize.height / CGFloat(rows + 2))
         self.gridOffsetX = (screenSize.width - (tileSize * CGFloat(cols - 1))) / 2
         self.gridOffsetY = (screenSize.height - (tileSize * CGFloat(rows - 1))) / 2
+        
+        //pass calculated tileSize + offsets to projectile component
+        ProjectileComponent.tileSize = self.tileSize
+        ProjectileComponent.offsetX = self.gridOffsetX
+        ProjectileComponent.offsetY = self.gridOffsetY
+
     }
 }

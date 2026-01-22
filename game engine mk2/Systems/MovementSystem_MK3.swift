@@ -14,6 +14,18 @@ class MovementSystem_MK3 {
 
         //process movers (state == .moving)
         for entity in entityManager.allEntities {
+            
+            //check if entity is a projectile
+            if let projectile = entity.projectile {
+                if let target = entityManager.allEntities.first(where: { $0.id == projectile.targetID }) {
+                    executeProjectileTick(entity: entity, proj: projectile, target: target, grid: grid)
+                } else {
+                    //target disappeared, delete projectile
+                    entity.state = .dead
+                }
+                continue
+            }
+            
             //check if entity has a movement component and state == .moving
             guard let movement = entity.movement, entity.state == .moving else { continue }
             
@@ -108,7 +120,8 @@ class MovementSystem_MK3 {
             movement.waitTimer = 0
         }
     }
-
+    
+    //tile-based move
     private func executeMove(entity: Entity_MK3, moveComp: MovementComponent, to nextPos: TilePosition, grid: Grid_MK3) {
         let oldPos = entity.position
         
@@ -132,5 +145,15 @@ class MovementSystem_MK3 {
         if moveComp.currentPath.isEmpty {
             entity.state = .idle
         }
+    }
+    
+    //projectile (direct) move
+    private func executeProjectileTick(entity: Entity_MK3, proj: ProjectileComponent, target: Entity_MK3?, grid: Grid_MK3) {
+        guard let target = target else {
+            entity.state = .dead
+            return
+        }
+
+        
     }
 }

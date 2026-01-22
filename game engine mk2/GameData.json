@@ -33,7 +33,7 @@
       "obeysReservation": true,
       "health": { "hp": 10 },
       "movement": { "speed": 2, "isFlying": false, "movementType": "smart" },
-      "combat": { "attack": 2, "attackSpeed": 3, "range": 5, "threatRange": 8, "pattern": "projectile:Bullet" },
+      "combat": { "attack": 2, "attackSpeed": 5, "range": 7, "threatRange": 8, "pattern": "projectile:Bullet" },
       "aiType": "attacker"
     },
     "Runner": {

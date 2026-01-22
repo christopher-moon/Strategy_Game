@@ -12,6 +12,8 @@ extension AttackPattern {
     ) -> [Entity_MK3] {
         
         switch self {
+        
+        //single target melee hit
         case .singleTarget:
             guard let id = targetID,
                   let target = entityManager.allEntities.first(where: { $0.id == id }) else {
@@ -19,7 +21,8 @@ extension AttackPattern {
             }
             let isDead = target.state == .dead || (target.health?.isDead ?? false)
             return isDead ? [] : [target]
-            
+        
+        //aoe
         case .aoe(let radius):
             return entityManager.allEntities.filter { victim in
                 let dist = abs(attacker.position.row - victim.position.row) +
@@ -29,8 +32,14 @@ extension AttackPattern {
                 return dist <= radius && isAlive && isEnemy
             }
         
+        //projectile
         case .projectile(let name):
-            return [] // Projectiles don't deal immediate melee damage
+            guard let id = targetID,
+                  let target = entityManager.allEntities.first(where: { $0.id == id }) else {
+                return []
+            }
+            let isDead = target.state == .dead || (target.health?.isDead ?? false)
+            return isDead ? [] : [target]
         }
     }
 }

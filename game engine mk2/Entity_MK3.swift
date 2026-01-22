@@ -170,10 +170,32 @@ class ProjectileComponent {
     var speed: CGFloat // Points per second
     var damage: Int
     
+    var velocity: CGPoint = .zero 
+    
+    static var tileSize: CGFloat = 64.0
+    static var offsetX: CGFloat = 0 // Add these
+    static var offsetY: CGFloat = 0
+    
     init(targetID: UUID, screenPosition: CGPoint, speed: CGFloat = 400.0, damage: Int) {
         self.targetID = targetID
         self.screenPosition = screenPosition
         self.speed = speed
         self.damage = damage
     }
+
+    // Helper: Logic calculates virtual pixels using the active scale
+    static func getLogicalScreenPos(for pos: TilePosition) -> CGPoint {
+        return CGPoint(
+            x: offsetX + (CGFloat(pos.col) * tileSize),
+            y: offsetY + (CGFloat(pos.row) * tileSize)
+        )
+    }
+
+    static func getTilePos(for screenPos: CGPoint) -> TilePosition {
+        return TilePosition(
+            row: Int(round(screenPos.y / tileSize)),
+            col: Int(round(screenPos.x / tileSize))
+        )
+    }
+
 }

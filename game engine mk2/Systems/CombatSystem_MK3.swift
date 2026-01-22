@@ -26,7 +26,7 @@ class CombatSystem_MK3 {
                     if !victims.isEmpty {
                         
                         //apply damage to target
-                        applyDamage(from: entity, to: victims)
+                        applyDamage(from: entity, to: victims, grid: grid, entityManager: entityManager)
                         
                         // --- post-hit logic: check if combat is over ---
                         
@@ -57,15 +57,21 @@ class CombatSystem_MK3 {
         }
     }
     
-    private func applyDamage(from attacker: Entity_MK3, to victims: [Entity_MK3]) {
-        let damage = attacker.combat?.attack ?? 0
-        for victim in victims {
-            victim.health?.takeDamage(damage)
+    /* CombatSystem_MK3.swift */
+
+    func applyDamage(from attacker: Entity_MK3, to victims: [Entity_MK3], grid: Grid_MK3, entityManager: EntityManager_MK3) {
+        guard let combat = attacker.combat else { return }
+        
+        //create projectile
+        if case .projectile(let projName) = combat.attackPattern {
             
-            // Mark dead immediately for this frame's logic
-            if victim.health?.isDead == true {
-                victim.state = .dead
-                print("\(attacker.name) destroyed \(victim.name)!")
+            
+        //melee hit
+        } else {
+            // Melee logic remains the same
+            for victim in victims {
+                victim.health?.takeDamage(combat.attack)
+                if victim.health?.isDead == true { victim.state = .dead }
             }
         }
     }
@@ -81,19 +87,4 @@ class CombatSystem_MK3 {
         return isDead
     }
 
-    // NEW Helper Function
-    private func spawnProjectile(from: Entity_MK3, to: Entity_MK3, entityManager: EntityManager_MK3) {
-        // 1. Create a generic projectile entity (Not on the grid!)
-        let arrow = Entity_MK3(name: "Arrow", team: from.team, position: from.position)
-        
-        // 2. We use a placeholder screen pos (System will update this immediately)
-        arrow.projectile = ProjectileComponent(
-            targetID: to.id,
-            screenPosition: .zero, // System will sync this to the attacker's node
-            speed: 450.0,
-            damage: from.combat?.attack ?? 1
-        )
-        
-        entityManager.addEntity(arrow)
-    }
 }
