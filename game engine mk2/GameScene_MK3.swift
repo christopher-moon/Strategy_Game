@@ -18,21 +18,19 @@ class GameScene_MK3: SKScene {
     let movementSystem = MovementSystem_MK3()
     let combatSystem = CombatSystem_MK3()
     
+    //MARK: DID MOVE
     override func didMove(to view: SKView) {
         setupScene()
     }
 
-    
+    //MARK: SETUP SCENE
     func setupScene() {
         // 1. Clear everything (Safety for level transitions)
         clearLevel()
-        
-        
         // 2. Setup Layout
         mapManager.setupLayout(screenSize: self.size, rows: 23, cols: 15)
-        
         // 3. Load Level via MK3 Loader
-        if let levelData = LevelManager.loadLevel(fileName: "testlevel4") {
+        if let levelData = LevelManager.loadLevel(fileName: "testlevel3") {
             LevelLoader_MK3.load(
                 data: levelData,
                 into: grid,
@@ -42,6 +40,7 @@ class GameScene_MK3: SKScene {
         }
     }
     
+    //MARK: CLEAR LEVEL
     // THE "ANTI-LEAK" FUNCTION
     func clearLevel() {
         print("MK3: Clearing level memory...")
@@ -59,32 +58,50 @@ class GameScene_MK3: SKScene {
         // 3. Reset timing
         lastUpdateTime = 0
     }
+    /* GameScene_MK3.swift */
+
+    // Add a flag to track if we are waiting for the current tick's AI to finish
+    var isWaitingForAI = false
     
+    //MARK: UPDATE
     override func update(_ currentTime: TimeInterval) {
         let deltaTime = lastUpdateTime == 0 ? 0 : currentTime - lastUpdateTime
         lastUpdateTime = currentTime
+        
+        if isPaused { return }
                 
-        // 1. LOGIC TICK
+        // 1. THE TICK TRIGGER (Every 0.3s)
         if timeManager.update(delta: deltaTime) {
-            //HOLY ORDER OF SYSTEM UPDATES:
+            aiSystem.enqueueEntities(entityManager: entityManager)
+            isWaitingForAI = true // Lock the systems until the queue is processed
+        }
+
+        // 2. THE AI PROCESSING (Every Frame)
+        aiSystem.update(entityManager: entityManager, grid: grid)
+        
+        // 3. THE EXECUTION GATE
+        // Only run movement and combat once per tick, specifically
+        // when the AI has finished its staggered thinking.
+        if isWaitingForAI && aiSystem.isQueueEmpty {
             
-            //decide
-            aiSystem.update(entityManager: entityManager, grid: grid)
-            
-            //move
+            // Now these run exactly once every 0.3s, just a few frames
+            // after the initial tick trigger.
             movementSystem.update(entityManager: entityManager, grid: grid)
             
-            //fight/interact
             combatSystem.update(entityManager: entityManager, grid: grid)
-                        
-            // cleanup (Now handles HP, Lifecycle timers, and 'Dead' state)
+            
+            // Cleanup follows the movement/combat
             entityManager.cleanup(grid: grid, scene: self)
             
+            // Unlock until the next 0.3s tick triggers
+            isWaitingForAI = false
         }
+
+        // 4. VISUALS (Always 60fps for smooth interpolation)
         syncVisuals(deltaTime: deltaTime)
-
     }
-
+    
+    //MARK: SYNC VISUALS
     private func syncVisuals(deltaTime: TimeInterval) {
         for entity in entityManager.allEntities {
             // Calculate where the entity wants to be in screen space
@@ -149,4 +166,11 @@ class GameScene_MK3: SKScene {
         
         print("Spawned Warrior at \(targetPos)")
     }
+
+    func unpause() {
+        self.isPaused = false
+        self.timeManager.paused = false
+        self.lastUpdateTime = 0 // Reset this so deltaTime is 0 on the first frame back
+    }
+    
 }

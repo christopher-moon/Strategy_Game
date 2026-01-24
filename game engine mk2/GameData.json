@@ -3,7 +3,7 @@
     "Warrior": {
       "name": "Warrior",
       "isImpassable": false,
-      "movementCost": 5,
+      "movementCost": 20,
       "obeysReservation": true,
       "health": { "hp": 8 },
       "movement": { "speed": 2, "isFlying": false, "movementType": "smart" },
@@ -13,11 +13,11 @@
     "Defender": {
       "name": "Defender",
       "isImpassable": false,
-      "movementCost": 5,
+      "movementCost": 20,
       "obeysReservation": true,
-      "health": { "hp": 10 },
+      "health": { "hp": 20 },
       "movement": { "speed": 2, "isFlying": false, "movementType": "smart" },
-      "combat": { "attack": 3, "attackSpeed": 3, "range": 1, "threatRange": 8, "pattern": "single" },
+      "combat": { "attack": 1, "attackSpeed": 4, "range": 1, "threatRange": 8, "pattern": "single" },
       "aiType": "defender"
     },
     "Bullet": {
@@ -29,7 +29,7 @@
     "Archer": {
       "name": "Archer",
       "isImpassable": false,
-      "movementCost": 5,
+      "movementCost": 20,
       "obeysReservation": true,
       "health": { "hp": 10 },
       "movement": { "speed": 2, "isFlying": false, "movementType": "smart" },
@@ -39,7 +39,7 @@
     "Runner": {
       "name": "Runner",
       "isImpassable": false,
-      "movementCost": 5,
+      "movementCost": 20,
       "obeysReservation": true,
       "health": { "hp": 10 },
       "movement": { "speed": 1, "isFlying": false, "movementType": "smart" },
@@ -49,7 +49,7 @@
     "Flyer": {
       "name": "Flyer",
       "isImpassable": false,
-      "movementCost": 5,
+      "movementCost": 10,
       "obeysReservation": true,
       "health": { "hp": 10 },
       "movement": { "speed": 2, "isFlying": true, "movementType": "smart" },

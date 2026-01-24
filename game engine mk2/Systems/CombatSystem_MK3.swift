@@ -26,7 +26,7 @@ class CombatSystem_MK3 {
                     if !victims.isEmpty {
                         
                         //apply damage to target
-                        applyDamage(from: entity, to: victims, grid: grid, entityManager: entityManager)
+                        applyDamage(from: entity, to: victims)
                         
                         // --- post-hit logic: check if combat is over ---
                         
@@ -57,14 +57,12 @@ class CombatSystem_MK3 {
         }
     }
     
-    /* CombatSystem_MK3.swift */
 
-    func applyDamage(from attacker: Entity_MK3, to victims: [Entity_MK3], grid: Grid_MK3, entityManager: EntityManager_MK3) {
+    func applyDamage(from attacker: Entity_MK3, to victims: [Entity_MK3]) {
         guard let combat = attacker.combat else { return }
         
         //create projectile
         if case .projectile(let projName) = combat.attackPattern {
-            
             
         //melee hit
         } else {

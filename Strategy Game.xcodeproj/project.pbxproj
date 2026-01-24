@@ -389,7 +389,6 @@
 				6539C6282F1C1EBD00B17DC9 /* warrior.png */,
 				6539C6262F1C1DC900B17DC9 /* saw.png */,
 				6539C6222F1C1B1B00B17DC9 /* mine.png */,
-				653F64922F10A1DB00B2C014 /* levels */,
 				653F64872F1095B100B2C014 /* shadows */,
 				653F64862F1095A100B2C014 /* projectiles */,
 				653F64852F10958C00B2C014 /* effects */,
@@ -470,13 +469,6 @@
 				653F646A2F0C510800B2C014 /* player_shadow_dead.atlas */,
 			);
 			path = shadows;
-			sourceTree = "<group>";
-		};
-		653F64922F10A1DB00B2C014 /* levels */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = levels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
