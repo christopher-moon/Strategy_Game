@@ -1,8 +1,8 @@
-/* Library_MK3.swift */
+/* Library.swift */
 import Foundation
 
-class Library_MK3 {
-    static let shared = Library_MK3()
+class Library {
+    static let shared = Library()
     var templates: [String: EntityBlueprint_MK3] = [:]
     
     private init() { loadJSON() }

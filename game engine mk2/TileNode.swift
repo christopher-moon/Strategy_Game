@@ -1,47 +1,27 @@
 import SpriteKit
 
 class TileNode: SKSpriteNode {
+    let tile: Tile
     
-    var tile: Tile
-    
-    init(tile: Tile, size: CGSize) {
-        
+    init(tile: Tile, size: CGFloat) {
         self.tile = tile
         
-        let textureName: String
-        switch tile.terrain {
-        case .ground: textureName = "tile_ground"
-        case .wall: textureName = "tile_wall"
-        case .objective: textureName = "tile_grass" // placeholder
-        }
+        // Map the JSON character to a color/texture
+        let color: SKColor = {
+            switch tile.terrain {
+            case .wall: return .darkGray
+            case .objective: return .systemOrange
+            case .ground: return .lightGray
+            }
+        }()
         
-        let texture = SKTexture(imageNamed: textureName)
-        super.init(texture: texture, color: .white, size: size)
-        anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        // We subtract 1 from size to create a tiny "grid gap" visual
+        super.init(texture: nil, color: color, size: CGSize(width: size-2, height: size-2))
+        
+        // Using .zero anchor makes grid positioning math much easier
+        self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        self.name = "Tile_\(tile.position.col)_\(tile.position.row)"
     }
     
-    required init?(coder: NSCoder) { fatalError() }
-    
-    //update tile appearance
-    func updateAppearance() {
-        let textureName: String
-        switch tile.terrain {
-        case .ground: textureName = "tile_ground"
-        case .wall: textureName = "tile_wall"
-        case .objective: textureName = "tile_grass"
-        }
-        self.texture = SKTexture(imageNamed: textureName)
-    }
-    
-    func zPositionForRow(maxRow: Int) -> CGFloat {
-        return ZManager.terrain + CGFloat(tile.position.row)
-    }
-    
-    //convert in game tile position to actual pixels on the screen
-    func scenePosition(tileSize: CGSize) -> CGPoint {
-        let x = CGFloat(tile.position.col) * tileSize.width + tileSize.width / 2
-        let y = CGFloat(tile.position.row) * tileSize.height
-        return CGPoint(x: x, y: y)
-    }
+    required init?(coder aDecoder: NSCoder) { fatalError() }
 }
-

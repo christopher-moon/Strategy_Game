@@ -7,43 +7,33 @@ import Foundation
 struct EntityBlueprint_MK3: Codable {
     let name: String
     
-    // Core Physics
-    let movementCost: Int?
-    let isImpassable: Bool?
-    let obeysReservation: Bool?
-    
+    //ai type (optional)
+    let ai: String?
+        
     // Component Data (Optional)
     let health: HealthBlueprint?
-    let movement: MovementBlueprint?
     let combat: CombatBlueprint?
-    let projectile: ProjectileBlueprint?
-    let aiType: String?
+    let movement: MovementBlueprint?
 }
 
 struct HealthBlueprint: Codable {
     let hp: Int
-}
-
-struct MovementBlueprint: Codable {
-    let speed: Int
-    let isFlying: Bool?
-    let movementType: MovementType
+    let blocking: Bool
 }
 
 struct CombatBlueprint: Codable {
-    let attack: Int
-    let attackSpeed: Int
+    let damage: Int
     let range: Int
-    let threatRange: Int?
-    let pattern: String // "single", "aoe"
-    let selfDestruct: Bool?
+    let threatRange: Int
+    let attackSpeed: Int
 }
 
-struct ProjectileBlueprint: Codable {
-    let targetID: UUID
-    let screenPosition: CGPoint
-    let speed: CGFloat
-    let damage: Int
+struct MovementBlueprint: Codable {
+    let speed: Float
+    // Added for MK3 Steering Tuning
+    let radius: Float      // How big the entity is for avoidance
+    let mass: Float        // How hard it is to push/turn
+    let acceleration: Float // How quickly it reaches max speed
 }
 
 struct GameDataContainer_MK3: Codable {
