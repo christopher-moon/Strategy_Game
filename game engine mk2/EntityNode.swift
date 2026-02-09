@@ -1,10 +1,9 @@
 import SpriteKit
+import GameplayKit
 
 class EntityNode: SKNode {
     let entityID: UUID
     let sprite: SKSpriteNode
-    
-    // Debug Labels
     private let stateLabel = SKLabelNode(fontNamed: "AvenirNext-Bold")
     private let healthLabel = SKLabelNode(fontNamed: "AvenirNext-Bold")
 
@@ -16,37 +15,30 @@ class EntityNode: SKNode {
         super.init()
         self.addChild(sprite)
         
-        // Setup State Label (Top)
+        // Setup labels (Top & Bottom)
         stateLabel.fontSize = 12
-        stateLabel.fontColor = .white
         stateLabel.position = CGPoint(x: 0, y: (size * 0.7) / 2 + 5)
         self.addChild(stateLabel)
         
-        // Setup Health Label (Bottom)
         healthLabel.fontSize = 10
-        healthLabel.fontColor = .green
         healthLabel.position = CGPoint(x: 0, y: -(size * 0.7) / 2 - 12)
         self.addChild(healthLabel)
     }
 
-    // Update with new data from systems
-    func update(entity: Entity, targetPoint: CGPoint, deltaTime: TimeInterval) {
-        self.position = targetPoint
-        
-        // 1. Update State Text
+    func update(entity: Entity, deltaTime: TimeInterval) {
+        // 1. Labels
         if let currentState = entity.stateMachine?.currentState {
-            // This shows the class name (e.g., "Idle", "Moving")
             stateLabel.text = "\(type(of: currentState))".uppercased()
         }
         
-        // 2. Update Health Numbers
         if let health = entity.component(ofType: HealthComponent.self) {
             healthLabel.text = "\(health.current)/\(health.max)"
-            
-            // Optional: Color coding health
             let ratio = CGFloat(health.current) / CGFloat(health.max)
             healthLabel.fontColor = ratio < 0.3 ? .red : (ratio < 0.7 ? .yellow : .green)
         }
+        
+        // 2. Future: State-based animations (e.g., if entity.stateMachine.currentState is Attacking)
+        // triggerAnimation("attack")
     }
     
     required init?(coder aDecoder: NSCoder) { fatalError() }

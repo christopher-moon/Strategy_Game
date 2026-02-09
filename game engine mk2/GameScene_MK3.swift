@@ -12,63 +12,61 @@ class GameScene_MK3: SKScene {
     let timeManager = TimeManager()
     let mapManager = MapManager()
     let entityManager = EntityManager()
+    lazy var systemManager = SystemManager(mapManager: self.mapManager)
     
-    //systems
+    //tick-based systems
     let aiSystem = AISystem()
-    //let movementSystem = MovementSystem() // Instantiate the system
+    //let combatSystem = CombatSystem()
+    
+    //helper systems
         
     override func didMove(to view: SKView) {
-        
         //add the map's container to the scene
         self.addChild(mapManager.worldNode)
-                            
         //load the JSON (using your LevelManager)
         if let levelData = LevelManager.loadLevel(fileName: "testlevel4") {
             //build logical map from level data
             mapManager.buildMap(from: levelData)
-            
             //generate navigation map 
             mapManager.generateNavGraph()
-                
             //initial positioning: fit the map to the screen size
             mapManager.fitMapToScreen(screenSize: self.size)
-            
             //spawn entities
             spawnLevelEntities(from: levelData)
-                        
         }
     }
     
     //tick + visual updates
     override func update(_ currentTime: TimeInterval) {
-        
         let deltaTime = lastUpdateTime == 0 ? 0 : currentTime - lastUpdateTime
         lastUpdateTime = currentTime
-        
         //logical tick (will eventually run ai/system calls here)
         if timeManager.update(delta: deltaTime) {
-            //will likely use GKComponentSystems for ai and combat
-            //call the update functions for the component systems here
             let tickDuration = timeManager.tickRate
             aiSystem.update(entityManager: entityManager, deltaTime: tickDuration)
         }
-        
-        //continous movement (update movement agents)
-        //movementSystem.update( deltaTime: deltaTime)
-        
-
+        //frame-based logic (movement and visuals)
+        if timeManager.paused == false {
+            systemManager.update(deltaTime: deltaTime)
+        }
     }
     
     //move
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
         let location = touch.location(in: mapManager.worldNode)
-        let gridPos = mapManager.calculateGridPos(from: location)
+        let targetVec = vector_float2(Float(location.x), Float(location.y))
         
-        print("moving to \(gridPos)")
-            
-        if let playerUnit = entityManager.allEntities.first(where: { $0.team == .player }) {
-            //movementSystem.orderMove(for: playerUnit, to: gridPos)
+        // 1. Grab all entities that are capable of moving
+        let movers = entityManager.allEntities.compactMap { $0.component(ofType: MovementComponent.self) }
+        
+        print("Commanding \(movers.count) units to move to \(location)")
+
+        // 2. Assign the same target to everyone
+        for moveComp in movers {
+            // Optional: Add a tiny bit of random variance to the target
+            // if you want to see them fight for slightly different spots
+            moveComp.targetPosition = targetVec
         }
     }
 
@@ -81,12 +79,10 @@ class GameScene_MK3: SKScene {
             // Convert String team to Enum (default to enemy if missing)
             let team = Team(rawValue: entityData.team ?? "neutral") ?? .neutral
             
-            let entity = EntityFactory.spawn(type: entityData.type,
-                                    at: pos,
-                                    team: team,
-                                    manager: entityManager,
-                                    mapManager: mapManager
-            )
+            if let entity = EntityFactory.spawn(type: entityData.type, at: pos, team: team, mapManager: mapManager){
+                entityManager.addEntity(entity)
+                systemManager.addEntity(entity)
+            }
         }
     }
 }

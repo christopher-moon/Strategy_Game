@@ -35,6 +35,8 @@
 		6539C6372F206A4100B17DC9 /* Defender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6539C6362F206A4100B17DC9 /* Defender.swift */; };
 		6539C63D2F218D9400B17DC9 /* bullet.png in Resources */ = {isa = PBXBuildFile; fileRef = 6539C63C2F218D9400B17DC9 /* bullet.png */; };
 		6539C63F2F2D99DF00B17DC9 /* EntityStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6539C63E2F2D99DF00B17DC9 /* EntityStates.swift */; };
+		6539C6432F393FE300B17DC9 /* ComponentSystemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6539C6422F393FE300B17DC9 /* ComponentSystemManager.swift */; };
+		6539C6452F395DDD00B17DC9 /* CollisionSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6539C6442F395DDD00B17DC9 /* CollisionSystem.swift */; };
 		653F63E02ECD70FA00B2C014 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653F63DF2ECD70FA00B2C014 /* AppDelegate.swift */; };
 		653F63E22ECD70FA00B2C014 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 653F63E12ECD70FA00B2C014 /* GameScene.sks */; };
 		653F63E42ECD70FA00B2C014 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 653F63E32ECD70FA00B2C014 /* Actions.sks */; };
@@ -81,7 +83,6 @@
 		653F64962F10AB4600B2C014 /* testlevel.json in Resources */ = {isa = PBXBuildFile; fileRef = 653F64952F10AB4600B2C014 /* testlevel.json */; };
 		653F64982F10C3B200B2C014 /* alert_play.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 653F64972F10C3B200B2C014 /* alert_play.atlas */; };
 		653F649A2F1172BD00B2C014 /* ZManager_MK3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653F64992F1172BD00B2C014 /* ZManager_MK3.swift */; };
-		653F64A22F117EE300B2C014 /* AttackStrategies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653F64A12F117EE300B2C014 /* AttackStrategies.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -130,6 +131,8 @@
 		6539C6362F206A4100B17DC9 /* Defender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defender.swift; sourceTree = "<group>"; };
 		6539C63C2F218D9400B17DC9 /* bullet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bullet.png; path = ../../../Downloads/bullet.png; sourceTree = "<group>"; };
 		6539C63E2F2D99DF00B17DC9 /* EntityStates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityStates.swift; sourceTree = "<group>"; };
+		6539C6422F393FE300B17DC9 /* ComponentSystemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentSystemManager.swift; sourceTree = "<group>"; };
+		6539C6442F395DDD00B17DC9 /* CollisionSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollisionSystem.swift; sourceTree = "<group>"; };
 		653F63DC2ECD70FA00B2C014 /* Strategy Game.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Strategy Game.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		653F63DF2ECD70FA00B2C014 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		653F63E12ECD70FA00B2C014 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -180,7 +183,6 @@
 		653F64952F10AB4600B2C014 /* testlevel.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testlevel.json; sourceTree = "<group>"; };
 		653F64972F10C3B200B2C014 /* alert_play.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = alert_play.atlas; sourceTree = "<group>"; };
 		653F64992F1172BD00B2C014 /* ZManager_MK3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZManager_MK3.swift; sourceTree = "<group>"; };
-		653F64A12F117EE300B2C014 /* AttackStrategies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackStrategies.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -240,6 +242,7 @@
 				6539C5EB2F11DCC700B17DC9 /* EntityManager.swift */,
 				6539C5FF2F14D0D000B17DC9 /* MapManager_MK3.swift */,
 				6539C5FD2F14D0AF00B17DC9 /* TimeManager.swift */,
+				6539C6422F393FE300B17DC9 /* ComponentSystemManager.swift */,
 			);
 			path = managers;
 			sourceTree = "<group>";
@@ -251,6 +254,7 @@
 				6539C6082F160C6700B17DC9 /* MovementSystem_MK3.swift */,
 				6539C60C2F18604400B17DC9 /* AISystem_MK2.swift */,
 				6539C6182F18848F00B17DC9 /* CombatSystem_MK3.swift */,
+				6539C6442F395DDD00B17DC9 /* CollisionSystem.swift */,
 			);
 			path = Systems;
 			sourceTree = "<group>";
@@ -406,7 +410,6 @@
 				653F644A2EF0F57900B2C014 /* UnitAIBrain.swift */,
 				653F644C2EF0F6CC00B2C014 /* AttackerUnitAI.swift */,
 				653F644E2EF1033200B2C014 /* ObjectiveUnitAI.swift */,
-				653F64A12F117EE300B2C014 /* AttackStrategies.swift */,
 			);
 			path = UnitSystems;
 			sourceTree = "<group>";
@@ -619,12 +622,13 @@
 				6539C6192F18848F00B17DC9 /* CombatSystem_MK3.swift in Sources */,
 				6539C6142F18759400B17DC9 /* Attacker.swift in Sources */,
 				653F63E62ECD70FA00B2C014 /* GameScene.swift in Sources */,
+				6539C6452F395DDD00B17DC9 /* CollisionSystem.swift in Sources */,
+				6539C6432F393FE300B17DC9 /* ComponentSystemManager.swift in Sources */,
 				653F644F2EF1033200B2C014 /* ObjectiveUnitAI.swift in Sources */,
 				6539C61D2F1C107F00B17DC9 /* EntityNode.swift in Sources */,
 				653F64302ED0233000B2C014 /* DeckScene.swift in Sources */,
 				6539C63F2F2D99DF00B17DC9 /* EntityStates.swift in Sources */,
 				653F63E82ECD70FA00B2C014 /* GameViewController.swift in Sources */,
-				653F64A22F117EE300B2C014 /* AttackStrategies.swift in Sources */,
 				653F64362ED025DC00B2C014 /* Units.swift in Sources */,
 				653F64382ED0265D00B2C014 /* UnitNode.swift in Sources */,
 				653F644D2EF0F6CC00B2C014 /* AttackerUnitAI.swift in Sources */,

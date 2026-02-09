@@ -30,8 +30,8 @@
             filePath = "game engine mk2/GameScene_MK3.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "43"
-            endingLineNumber = "43"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
             landmarkName = "update(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -46,8 +46,8 @@
             filePath = "game engine mk2/GameScene_MK3.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "41"
-            endingLineNumber = "41"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
             landmarkName = "GameScene_MK3"
             landmarkType = "3">
          </BreakpointContent>

@@ -46,45 +46,104 @@ class MapManager {
     }
     
     //MARK: GAME MAP
-    //create the game map based on level data
+    // MARK: - MERGE LOGIC
+
+    /// Optimized buildMap that uses merging
     func buildMap(from data: LevelData) {
         worldNode.removeAllChildren()
         grid.removeAll()
+        physicalObstacles.removeAll() // Ensure list is fresh
         
         self.rows = data.rows
         self.cols = data.cols
         
-        let halfTile = tileSize / 2
-        
+        // 1. First Pass: Create Logical and Visual Tiles
         for (r, rowString) in data.layout.enumerated() {
             for (c, char) in rowString.enumerated() {
                 let pos = TilePosition(row: r, col: c)
-                
-                // 1. Create Logical Tiles
                 let type = TerrainType(rawValue: String(char).uppercased()) ?? .ground
                 let tile = Tile(position: pos, terrain: type)
                 grid[pos] = tile
                 
-                // 2. Create Visual Tiles
                 let node = TileNode(tile: tile, size: tileSize)
-                
-                // Position math: JSON is Top-Down, SpriteKit is Bottom-Up
-                // We invert the Row so Row 0 appears at the top of the screen
-                node.position = CGPoint(
-                    x: (CGFloat(c) * tileSize) + halfTile,
-                    y: (CGFloat((rows - 1) - r) * tileSize) + halfTile
-                )
-                
+                node.position = calculateScreenPos(pos)
                 worldNode.addChild(node)
+            }
+        }
+        
+        // 2. Second Pass: Run the 2D Merging Logic
+        mergeObstacles()
+        
+        print("Map built. Merged into \(physicalObstacles.count) physical obstacles.")
+    }
+
+    private func mergeObstacles() {
+        var visited = Set<TilePosition>()
+        
+        for r in 0..<rows {
+            for c in 0..<cols {
+                let pos = TilePosition(row: r, col: c)
                 
-                // 3. Generate Obstacles for Navigation
-                if !tile.isWalkable {
-                    let vertices = getVerticesForTile(at: pos)
-                    let obstacle = GKPolygonObstacle(points: vertices)
-                    physicalObstacles.append(obstacle)
+                // If it's a wall and not already part of a merged rectangle
+                if let tile = grid[pos], !tile.isWalkable, !visited.contains(pos) {
+                    
+                    // A. Determine the maximum width of this wall segment in this row
+                    var width = 0
+                    while c + width < cols,
+                          let t = grid[TilePosition(row: r, col: c + width)],
+                          !t.isWalkable, !visited.contains(TilePosition(row: r, col: c + width)) {
+                        width += 1
+                    }
+                    
+                    // B. Determine the maximum height this width can extend downward
+                    var height = 1
+                    while r + height < rows {
+                        var rowMatch = true
+                        for dw in 0..<width {
+                            let checkPos = TilePosition(row: r + height, col: c + dw)
+                            if let t = grid[checkPos], t.isWalkable || visited.contains(checkPos) {
+                                rowMatch = false
+                                break
+                            }
+                        }
+                        if rowMatch { height += 1 } else { break }
+                    }
+                    
+                    // C. Mark all tiles in this rectangle as visited
+                    for dh in 0..<height {
+                        for dw in 0..<width {
+                            visited.insert(TilePosition(row: r + dh, col: c + dw))
+                        }
+                    }
+                    
+                    // D. Create the merged obstacle
+                    let mergedObstacle = createRectObstacle(row: r, col: c, width: width, height: height)
+                    physicalObstacles.append(mergedObstacle)
                 }
             }
         }
+    }
+
+    private func createRectObstacle(row: Int, col: Int, width: Int, height: Int) -> GKPolygonObstacle {
+        let topLeftPos = calculateScreenPos(TilePosition(row: row, col: col))
+        let bottomRightPos = calculateScreenPos(TilePosition(row: row + height - 1, col: col + width - 1))
+        
+        let h = Float(tileSize / 2)
+        let epsilon: Float = 0.5 // Add a half-pixel overlap to seal seams
+        
+        let leftX = Float(topLeftPos.x) - h - epsilon
+        let rightX = Float(bottomRightPos.x) + h + epsilon
+        let bottomY = Float(bottomRightPos.y) - h - epsilon
+        let topY = Float(topLeftPos.y) + h + epsilon
+        
+        let vertices = [
+            vector_float2(leftX, bottomY),
+            vector_float2(rightX, bottomY),
+            vector_float2(rightX, topY),
+            vector_float2(leftX, topY)
+        ]
+        
+        return GKPolygonObstacle(points: vertices)
     }
     
     //fit map to screen
@@ -146,5 +205,27 @@ class MapManager {
             vector_float2(cx + h, cy + h), // Top Right
             vector_float2(cx - h, cy + h)  // Top Left
         ]
+    }
+}
+
+extension GKPolygonObstacle {
+    func contains(_ point: vector_float2) -> Bool {
+        var inside = false
+        let count = vertexCount
+        var j = count - 1
+        
+        for i in 0..<count {
+            let vi = vertex(at: i)
+            let vj = vertex(at: j)
+            
+            // Ray casting algorithm
+            if ((vi.y > point.y) != (vj.y > point.y)) &&
+                (point.x < (vj.x - vi.x) * (point.y - vi.y) / (vj.y - vi.y) + vi.x) {
+                inside = !inside
+            }
+            j = i
+        }
+        
+        return inside
     }
 }
