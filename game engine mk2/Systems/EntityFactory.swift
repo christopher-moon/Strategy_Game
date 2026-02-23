@@ -3,7 +3,7 @@ import SpriteKit
 
 class EntityFactory {
     
-    static func spawn(type: String, at position: TilePosition, team: Team, mapManager: MapManager) -> Entity? {
+    static func spawn(type: String, at position: TilePosition, team: Team, mapManager: MapManager, entityManager: EntityManager) -> Entity? {
         
         guard let bp = Library.shared.templates[type] else { return nil }
         
@@ -19,28 +19,14 @@ class EntityFactory {
         // Important: Set the initial visual position immediately
         visualNode.position = startPoint
         
-        let visualComponent = VisualComponent(node: visualNode)
-        entity.addComponent(visualComponent)
+        entity.addComponent(VisualComponent(node: visualNode))
                 
         // Add to Scene Graph
         mapManager.worldNode.addChild(visualNode)
 
         // 3. MOVEMENT: Create Agent & Link to Visuals
-        if let _ = bp.movement { // If blueprint has movement data
-            let moveComp = MovementComponent()
-            moveComp.mapManager = mapManager // Inject the dependency here
-            
-            // A: Set Agent's internal position to match the screen position
-            // GKAgent2D uses vector_float2, not CGPoint
-            moveComp.position = vector_float2(Float(startPoint.x), Float(startPoint.y))
-            
-            moveComp.targetPosition = nil
-                        
-            // B: THE MAGIC LINK
-            // This tells GameplayKit: "When this Agent moves, move the VisualComponent's node too."
-            moveComp.delegate = visualComponent
-                        
-            entity.addComponent(moveComp)
+        if let mData = bp.movement {
+            entity.addComponent(MovementComponent(speed: mData.speed, radius: mData.radius, mass: mData.mass, physics: mData.physics, initialPosition: startPoint))
         }
         
         // 4. Other Components
@@ -63,6 +49,7 @@ class EntityFactory {
         
         // 6. Register
         mapManager.addEntity(entity.id, at: position)
+        entityManager.addEntity(entity)
         
         return entity
     }

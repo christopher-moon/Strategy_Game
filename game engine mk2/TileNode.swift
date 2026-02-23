@@ -3,25 +3,30 @@ import SpriteKit
 class TileNode: SKSpriteNode {
     let tile: Tile
     
-    init(tile: Tile, size: CGFloat) {
+    init(tile: Tile, width: CGFloat, height: CGFloat) {
         self.tile = tile
         
-        // Map the JSON character to a color/texture
-        let color: SKColor = {
+        // 1. Determine which texture to use
+        let textureName: String = {
             switch tile.terrain {
-            case .wall: return .darkGray
-            case .objective: return .systemOrange
-            case .ground: return .lightGray
+            case .wall: return "wall"
+            case .objective: return "ground"
+            case .ground: return "objective"
             }
         }()
         
-        // We subtract 1 from size to create a tiny "grid gap" visual
-        super.init(texture: nil, color: color, size: CGSize(width: size-2, height: size-2))
+        let tex = SKTexture(imageNamed: textureName)
         
-        // Using .zero anchor makes grid positioning math much easier
+        // 2. CRISP PIXELS: This prevents the 32x32 texture from looking blurry
+        // when stretched to 64 points.
+        tex.filteringMode = .nearest
+        
+        // 3. Size the sprite to the 'Width x Height' diamond dimensions
+        super.init(texture: tex, color: .white, size: CGSize(width: width, height: width))
+        
+        // Use center anchoring for isometric math consistency
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         self.name = "Tile_\(tile.position.col)_\(tile.position.row)"
     }
-    
     required init?(coder aDecoder: NSCoder) { fatalError() }
 }

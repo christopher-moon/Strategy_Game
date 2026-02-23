@@ -19,7 +19,7 @@ class Spawning: EntityState {
             if stateMachine?.state(forClass: Idle.self) != nil {
                 stateMachine?.enter(Idle.self)
             } else {
-                // If it's a transient effect (no health/idle), move to Dead
+                // If it's an effect (no health/idle), move to Dead
                 stateMachine?.enter(Dead.self)
             }
         }

@@ -1,73 +1,79 @@
-/* GameScene_MK3.swift:
- Highest level logic. Now uses the Modular Component system.
-*/
+/* GameScene_MK3.swift */
 import SpriteKit
 import GameplayKit
 
 class GameScene_MK3: SKScene {
     var lastUpdateTime: TimeInterval = 0
-    //var visualNodes: [UUID: EntityNode] = [:]
     
     //managers
     let timeManager = TimeManager()
     let mapManager = MapManager()
     let entityManager = EntityManager()
-    lazy var systemManager = SystemManager(mapManager: self.mapManager)
     
-    //tick-based systems
+    //systems
     let aiSystem = AISystem()
-    //let combatSystem = CombatSystem()
+    let movementSystem = MovementSystem()
+    let visualSystem = VisualSystem()
     
-    //helper systems
-        
     override func didMove(to view: SKView) {
+        self.backgroundColor = .gray // Makes it easier to see the map boundaries
+        
         //add the map's container to the scene
         self.addChild(mapManager.worldNode)
-        //load the JSON (using your LevelManager)
-        if let levelData = LevelManager.loadLevel(fileName: "testlevel4") {
-            //build logical map from level data
+        
+        if let levelData = LevelManager.loadLevel(fileName: "testlevel2") {
             mapManager.buildMap(from: levelData)
-            //generate navigation map 
             mapManager.generateNavGraph()
-            //initial positioning: fit the map to the screen size
             mapManager.fitMapToScreen(screenSize: self.size)
-            //spawn entities
             spawnLevelEntities(from: levelData)
         }
     }
     
-    //tick + visual updates
     override func update(_ currentTime: TimeInterval) {
         let deltaTime = lastUpdateTime == 0 ? 0 : currentTime - lastUpdateTime
         lastUpdateTime = currentTime
-        //logical tick (will eventually run ai/system calls here)
+        
         if timeManager.update(delta: deltaTime) {
             let tickDuration = timeManager.tickRate
             aiSystem.update(entityManager: entityManager, deltaTime: tickDuration)
         }
-        //frame-based logic (movement and visuals)
-        if timeManager.paused == false {
-            systemManager.update(deltaTime: deltaTime)
-        }
+        
+        movementSystem.update(entityManager: entityManager, mapManager: mapManager, deltaTime: deltaTime)
+        visualSystem.update(entityManager: entityManager, deltaTime: deltaTime)
+        
     }
     
-    //move
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let touch = touches.first else { return }
-        let location = touch.location(in: mapManager.worldNode)
-        let targetVec = vector_float2(Float(location.x), Float(location.y))
-        
-        // 1. Grab all entities that are capable of moving
-        let movers = entityManager.allEntities.compactMap { $0.component(ofType: MovementComponent.self) }
-        
-        print("Commanding \(movers.count) units to move to \(location)")
-
-        // 2. Assign the same target to everyone
-        for moveComp in movers {
-            // Optional: Add a tiny bit of random variance to the target
-            // if you want to see them fight for slightly different spots
-            moveComp.targetPosition = targetVec
+            guard let touch = touches.first else { return }
+            
+            // Get touch location relative to the map container
+            let location = touch.location(in: mapManager.worldNode)
+            
+            // Convert screen touch to logical grid position
+            let targetGridPos = mapManager.calculateGridPos(from: location)
+            
+            // Ensure the tapped tile is actually on the map
+            guard mapManager.grid[targetGridPos] != nil else { return }
+            
+            // For testing: Command ALL player entities to move to the tapped location
+        for entity in entityManager.allEntities where (entity.team == .player || entity.team == .enemy) {
+                commandEntityToMove(entity: entity, targetGridPos: targetGridPos)
+            }
         }
+
+    func commandEntityToMove(entity: Entity, targetGridPos: TilePosition) {
+        guard let moveComp = entity.component(ofType: MovementComponent.self) else { return }
+        
+        // Ask MapManager for the path
+        let newPath = mapManager.findPath(from: entity.gridPosition, to: targetGridPos)
+        
+        if newPath.isEmpty {
+            print("No valid path found for \(entity.name)")
+            return
+        }
+        
+        // Simply assign it
+        moveComp.path = newPath
     }
 
     func spawnLevelEntities(from data: LevelData) {
@@ -75,13 +81,10 @@ class GameScene_MK3: SKScene {
         
         for entityData in entities {
             let pos = TilePosition(row: entityData.row, col: entityData.col)
-            
-            // Convert String team to Enum (default to enemy if missing)
             let team = Team(rawValue: entityData.team ?? "neutral") ?? .neutral
             
-            if let entity = EntityFactory.spawn(type: entityData.type, at: pos, team: team, mapManager: mapManager){
-                entityManager.addEntity(entity)
-                systemManager.addEntity(entity)
+            if let entity = EntityFactory.spawn(type: entityData.type, at: pos, team: team, mapManager: mapManager, entityManager: entityManager){
+                //entityManager.addEntity(entity)
             }
         }
     }

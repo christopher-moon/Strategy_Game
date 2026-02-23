@@ -20,13 +20,16 @@ class Tile {
     //"container" for tracking entities on the tile
     var occupants: Set<UUID> = []
     
-    // flag to set a tile as hard unwalkable to block pathfinding, not sure if i actually need this if i base pathfinding logic off of cost instead
+    // flag to set a tile as hard unwalkable to prevent units from moving onto it
     var isWalkable: Bool { terrain != .wall }
     
     //pathfinding movement cost calculation: this will return a total cost for a tile based on terrain + entities
-    var moveCost: Int {
+    var moveCost: Float {
         //for now, this just returns 1 for each tile (the base cost), but eventually, this will be based on terrain + entities
-        var cost = 1
+        var cost: Float = 1.0
+        if terrain == .objective {
+            cost = 10.0
+        }
         return cost
     }
     

@@ -37,7 +37,11 @@ class EntityNode: SKNode {
             healthLabel.fontColor = ratio < 0.3 ? .red : (ratio < 0.7 ? .yellow : .green)
         }
         
-        // 2. Future: State-based animations (e.g., if entity.stateMachine.currentState is Attacking)
+        //2. z positioning
+        self.zPosition = 2000 - self.position.y
+
+        
+        // 3. Future: State-based animations (e.g., if entity.stateMachine.currentState is Attacking)
         // triggerAnimation("attack")
     }
     

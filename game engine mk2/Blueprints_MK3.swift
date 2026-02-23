@@ -30,10 +30,9 @@ struct CombatBlueprint: Codable {
 
 struct MovementBlueprint: Codable {
     let speed: Float
-    // Added for MK3 Steering Tuning
-    let radius: Float      // How big the entity is for avoidance
-    let mass: Float        // How hard it is to push/turn
-    let acceleration: Float // How quickly it reaches max speed
+    let radius: Float
+    let mass: Float
+    let physics: Bool
 }
 
 struct GameDataContainer_MK3: Codable {

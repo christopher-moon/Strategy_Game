@@ -10,14 +10,16 @@
     "..ww..",
     "..w...",
     "..w...",
-    "..O...",
-    "..W...",
+    "W.....",
+    "......",
     "..W..."
   ],
   "entities": [
-    { "type": "Unit", "row": 1, "col": 1, "team": "player" },
+    { "type": "Tank", "row": 1, "col": 1, "team": "player" },
     { "type": "Unit", "row": 5, "col": 4, "team": "enemy" },
-    { "type": "Unit", "row": 4, "col": 4, "team": "neutral" }
+    { "type": "Unit", "row": 5, "col": 4, "team": "enemy" },
+    { "type": "Runner", "row": 5, "col": 4, "team": "enemy" }
+
 
   ]
 }

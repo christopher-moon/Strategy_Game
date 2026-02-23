@@ -2,13 +2,25 @@
   "templates": {
     "Unit": {
       "name": "Unit",
-      "health": { "hp": 8, "blocking": false },
-      "movement": { "speed": 200.0, "radius": 15.0, "mass": 0.01, "acceleration": 5000.0 }
-    },
-    "Unit2": {
-      "name": "Unit2",
       "health": { "hp": 5, "blocking": false },
-      "movement": { "speed": 200.0, "radius": 15.0, "mass": 0.01, "acceleration": 5000.0 }
+      "movement": { "speed": 100.0, "radius": 15.0, "mass": 0.5, "physics": true},
+      "combat": {"damage": 2, "range": 1, "threatRange": 8, "attackSpeed": 3}
+    },
+    "Tank": {
+      "name": "Tank",
+      "health": { "hp": 10, "blocking": false },
+      "movement": { "speed": 100.0, "radius": 20.0, "mass": 1, "physics": true},
+      "combat": {"damage": 2, "range": 1, "threatRange": 8, "attackSpeed": 3}
+    },
+    "Runner": {
+      "name": "Runner",
+      "health": { "hp": 2, "blocking": false },
+      "movement": { "speed": 120.0, "radius": 15.0, "mass": 0.1, "physics": true},
+      "combat": {"damage": 2, "range": 1, "threatRange": 8, "attackSpeed": 3}
+    },
+    "Obstacle": {
+      "name": "Obstacle",
+      "health": { "hp": 2, "blocking": false }
     }
   }
 }

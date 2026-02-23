@@ -35,8 +35,10 @@
 		6539C6372F206A4100B17DC9 /* Defender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6539C6362F206A4100B17DC9 /* Defender.swift */; };
 		6539C63D2F218D9400B17DC9 /* bullet.png in Resources */ = {isa = PBXBuildFile; fileRef = 6539C63C2F218D9400B17DC9 /* bullet.png */; };
 		6539C63F2F2D99DF00B17DC9 /* EntityStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6539C63E2F2D99DF00B17DC9 /* EntityStates.swift */; };
-		6539C6432F393FE300B17DC9 /* ComponentSystemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6539C6422F393FE300B17DC9 /* ComponentSystemManager.swift */; };
-		6539C6452F395DDD00B17DC9 /* CollisionSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6539C6442F395DDD00B17DC9 /* CollisionSystem.swift */; };
+		6539C6472F42636400B17DC9 /* wall.png in Resources */ = {isa = PBXBuildFile; fileRef = 6539C6462F42636400B17DC9 /* wall.png */; };
+		6539C6492F42643E00B17DC9 /* ground.png in Resources */ = {isa = PBXBuildFile; fileRef = 6539C6482F42643E00B17DC9 /* ground.png */; };
+		6539C64B2F42646F00B17DC9 /* objective.png in Resources */ = {isa = PBXBuildFile; fileRef = 6539C64A2F42646F00B17DC9 /* objective.png */; };
+		6539C64D2F4BED4E00B17DC9 /* VisualSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6539C64C2F4BED4E00B17DC9 /* VisualSystem.swift */; };
 		653F63E02ECD70FA00B2C014 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653F63DF2ECD70FA00B2C014 /* AppDelegate.swift */; };
 		653F63E22ECD70FA00B2C014 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 653F63E12ECD70FA00B2C014 /* GameScene.sks */; };
 		653F63E42ECD70FA00B2C014 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 653F63E32ECD70FA00B2C014 /* Actions.sks */; };
@@ -63,10 +65,6 @@
 		653F64512F0A2C0C00B2C014 /* UnitRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653F64502F0A2C0C00B2C014 /* UnitRegistry.swift */; };
 		653F64552F0A372A00B2C014 /* AnimationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653F64542F0A372A00B2C014 /* AnimationManager.swift */; };
 		653F64572F0A394000B2C014 /* ProjectileNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653F64562F0A394000B2C014 /* ProjectileNode.swift */; };
-		653F645D2F0A3C3500B2C014 /* Warrior_idle.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 653F645C2F0A3C3500B2C014 /* Warrior_idle.atlas */; };
-		653F645F2F0A3C3F00B2C014 /* Warrior_moving.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 653F645E2F0A3C3F00B2C014 /* Warrior_moving.atlas */; };
-		653F64612F0A3C4600B2C014 /* Warrior_attacking.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 653F64602F0A3C4600B2C014 /* Warrior_attacking.atlas */; };
-		653F64632F0A3C4C00B2C014 /* Warrior_dead.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 653F64622F0A3C4C00B2C014 /* Warrior_dead.atlas */; };
 		653F64652F0A481000B2C014 /* player_shadow_idle.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 653F64642F0A481000B2C014 /* player_shadow_idle.atlas */; };
 		653F64672F0A482800B2C014 /* player_shadow_moving.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 653F64662F0A482800B2C014 /* player_shadow_moving.atlas */; };
 		653F64692F0A483300B2C014 /* player_shadow_attacking.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 653F64682F0A483300B2C014 /* player_shadow_attacking.atlas */; };
@@ -131,8 +129,10 @@
 		6539C6362F206A4100B17DC9 /* Defender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defender.swift; sourceTree = "<group>"; };
 		6539C63C2F218D9400B17DC9 /* bullet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bullet.png; path = ../../../Downloads/bullet.png; sourceTree = "<group>"; };
 		6539C63E2F2D99DF00B17DC9 /* EntityStates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityStates.swift; sourceTree = "<group>"; };
-		6539C6422F393FE300B17DC9 /* ComponentSystemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentSystemManager.swift; sourceTree = "<group>"; };
-		6539C6442F395DDD00B17DC9 /* CollisionSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollisionSystem.swift; sourceTree = "<group>"; };
+		6539C6462F42636400B17DC9 /* wall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wall.png; sourceTree = "<group>"; };
+		6539C6482F42643E00B17DC9 /* ground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ground.png; sourceTree = "<group>"; };
+		6539C64A2F42646F00B17DC9 /* objective.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = objective.png; sourceTree = "<group>"; };
+		6539C64C2F4BED4E00B17DC9 /* VisualSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualSystem.swift; sourceTree = "<group>"; };
 		653F63DC2ECD70FA00B2C014 /* Strategy Game.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Strategy Game.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		653F63DF2ECD70FA00B2C014 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		653F63E12ECD70FA00B2C014 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -163,10 +163,6 @@
 		653F64502F0A2C0C00B2C014 /* UnitRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitRegistry.swift; sourceTree = "<group>"; };
 		653F64542F0A372A00B2C014 /* AnimationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationManager.swift; sourceTree = "<group>"; };
 		653F64562F0A394000B2C014 /* ProjectileNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectileNode.swift; sourceTree = "<group>"; };
-		653F645C2F0A3C3500B2C014 /* Warrior_idle.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Warrior_idle.atlas; sourceTree = "<group>"; };
-		653F645E2F0A3C3F00B2C014 /* Warrior_moving.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Warrior_moving.atlas; sourceTree = "<group>"; };
-		653F64602F0A3C4600B2C014 /* Warrior_attacking.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Warrior_attacking.atlas; sourceTree = "<group>"; };
-		653F64622F0A3C4C00B2C014 /* Warrior_dead.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Warrior_dead.atlas; sourceTree = "<group>"; };
 		653F64642F0A481000B2C014 /* player_shadow_idle.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = player_shadow_idle.atlas; sourceTree = "<group>"; };
 		653F64662F0A482800B2C014 /* player_shadow_moving.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = player_shadow_moving.atlas; sourceTree = "<group>"; };
 		653F64682F0A483300B2C014 /* player_shadow_attacking.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = player_shadow_attacking.atlas; sourceTree = "<group>"; };
@@ -242,7 +238,6 @@
 				6539C5EB2F11DCC700B17DC9 /* EntityManager.swift */,
 				6539C5FF2F14D0D000B17DC9 /* MapManager_MK3.swift */,
 				6539C5FD2F14D0AF00B17DC9 /* TimeManager.swift */,
-				6539C6422F393FE300B17DC9 /* ComponentSystemManager.swift */,
 			);
 			path = managers;
 			sourceTree = "<group>";
@@ -254,7 +249,7 @@
 				6539C6082F160C6700B17DC9 /* MovementSystem_MK3.swift */,
 				6539C60C2F18604400B17DC9 /* AISystem_MK2.swift */,
 				6539C6182F18848F00B17DC9 /* CombatSystem_MK3.swift */,
-				6539C6442F395DDD00B17DC9 /* CollisionSystem.swift */,
+				6539C64C2F4BED4E00B17DC9 /* VisualSystem.swift */,
 			);
 			path = Systems;
 			sourceTree = "<group>";
@@ -368,6 +363,9 @@
 		653F641D2ECD7B4100B2C014 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				6539C6462F42636400B17DC9 /* wall.png */,
+				6539C6482F42643E00B17DC9 /* ground.png */,
+				6539C64A2F42646F00B17DC9 /* objective.png */,
 				6539C6242F1C1B2C00B17DC9 /* stone.png */,
 				6539C62C2F1C20A000B17DC9 /* runner.png */,
 				6539C63C2F218D9400B17DC9 /* bullet.png */,
@@ -378,10 +376,6 @@
 				653F64872F1095B100B2C014 /* shadows */,
 				653F64862F1095A100B2C014 /* projectiles */,
 				653F64852F10958C00B2C014 /* effects */,
-				653F64622F0A3C4C00B2C014 /* Warrior_dead.atlas */,
-				653F64602F0A3C4600B2C014 /* Warrior_attacking.atlas */,
-				653F645E2F0A3C3F00B2C014 /* Warrior_moving.atlas */,
-				653F645C2F0A3C3500B2C014 /* Warrior_idle.atlas */,
 				653F64282ECD825100B2C014 /* Cards.atlas */,
 				653F64262ECD7ED100B2C014 /* Tiles.atlas */,
 				653F64242ECD7EC800B2C014 /* Units.atlas */,
@@ -561,18 +555,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				653F64982F10C3B200B2C014 /* alert_play.atlas in Resources */,
-				653F645D2F0A3C3500B2C014 /* Warrior_idle.atlas in Resources */,
 				6539C6232F1C1B1C00B17DC9 /* mine.png in Resources */,
-				653F64612F0A3C4600B2C014 /* Warrior_attacking.atlas in Resources */,
+				6539C6472F42636400B17DC9 /* wall.png in Resources */,
 				653F63E22ECD70FA00B2C014 /* GameScene.sks in Resources */,
 				6539C6252F1C1B2C00B17DC9 /* stone.png in Resources */,
 				653F63EB2ECD70FA00B2C014 /* Base in Resources */,
 				653F64822F0F79C500B2C014 /* impact_play.atlas in Resources */,
 				653F64842F108E5D00B2C014 /* smoke1_play.atlas in Resources */,
+				6539C6492F42643E00B17DC9 /* ground.png in Resources */,
 				6539C6332F201AAA00B17DC9 /* testlevel3.json in Resources */,
-				653F64632F0A3C4C00B2C014 /* Warrior_dead.atlas in Resources */,
 				653F63ED2ECD70FB00B2C014 /* Assets.xcassets in Resources */,
-				653F645F2F0A3C3F00B2C014 /* Warrior_moving.atlas in Resources */,
 				653F64672F0A482800B2C014 /* player_shadow_moving.atlas in Resources */,
 				653F63E42ECD70FA00B2C014 /* Actions.sks in Resources */,
 				653F63F02ECD70FB00B2C014 /* Base in Resources */,
@@ -582,6 +574,7 @@
 				653F64252ECD7EC800B2C014 /* Units.atlas in Resources */,
 				653F64652F0A481000B2C014 /* player_shadow_idle.atlas in Resources */,
 				6539C6272F1C1DC900B17DC9 /* saw.png in Resources */,
+				6539C64B2F42646F00B17DC9 /* objective.png in Resources */,
 				6539C63D2F218D9400B17DC9 /* bullet.png in Resources */,
 				6539C62B2F1C1F4B00B17DC9 /* flyer.png in Resources */,
 				6539C5E12F11D57800B17DC9 /* GameData.json in Resources */,
@@ -622,13 +615,12 @@
 				6539C6192F18848F00B17DC9 /* CombatSystem_MK3.swift in Sources */,
 				6539C6142F18759400B17DC9 /* Attacker.swift in Sources */,
 				653F63E62ECD70FA00B2C014 /* GameScene.swift in Sources */,
-				6539C6452F395DDD00B17DC9 /* CollisionSystem.swift in Sources */,
-				6539C6432F393FE300B17DC9 /* ComponentSystemManager.swift in Sources */,
 				653F644F2EF1033200B2C014 /* ObjectiveUnitAI.swift in Sources */,
 				6539C61D2F1C107F00B17DC9 /* EntityNode.swift in Sources */,
 				653F64302ED0233000B2C014 /* DeckScene.swift in Sources */,
 				6539C63F2F2D99DF00B17DC9 /* EntityStates.swift in Sources */,
 				653F63E82ECD70FA00B2C014 /* GameViewController.swift in Sources */,
+				6539C64D2F4BED4E00B17DC9 /* VisualSystem.swift in Sources */,
 				653F64362ED025DC00B2C014 /* Units.swift in Sources */,
 				653F64382ED0265D00B2C014 /* UnitNode.swift in Sources */,
 				653F644D2EF0F6CC00B2C014 /* AttackerUnitAI.swift in Sources */,

@@ -11,10 +11,8 @@ class Entity: GKEntity {
     let id = UUID()
     let name: String
     var team: Team
-    
-    // Logical Grid Position (for turn-based logic)
+    // What tile the entity is on (for turn-based logic)
     var gridPosition: TilePosition
-    
     // Brain
     var stateMachine: GKStateMachine!
     
@@ -29,69 +27,41 @@ class Entity: GKEntity {
 
 // MARK: - COMPONENTS
 
-// The bridge between logic and pixels
-class VisualComponent: GKSKNodeComponent {
+class VisualComponent: GKComponent {
+    let node: EntityNode
     
-    override func agentDidUpdate(_ agent: GKAgent) {
-        // 1. Cast the agent to 2D
-        guard let agent2D = agent as? GKAgent2D else { return }
-        
-        // 2. Cast the node to your specific EntityNode class
-        // We use "as?" here because 'node' is a standard SKNode
-        guard let entityNode = node as? EntityNode else { return }
-        
-        // 3. Snap the position
-        entityNode.position = CGPoint(x: CGFloat(agent2D.position.x),
-                                      y: CGFloat(agent2D.position.y))
-        
-        // 4. Force upright rotation
-        entityNode.zRotation = 0
+    init(node: EntityNode) {
+        self.node = node
+        super.init()
     }
-    
-    // This is called every frame by the GKComponentSystem
-    override func update(deltaTime seconds: TimeInterval) {
-        super.update(deltaTime: seconds)
-
-        // GKSKNodeComponent automatically links the node to the entity
-        guard let entityNode = node as? EntityNode, let entity = self.entity as? Entity else { return }
-        
-         
-        // Sync the labels and animations
-        entityNode.update(entity: entity, deltaTime: seconds)
-    }
+    required init?(coder: NSCoder) { fatalError() }
 }
 
-class MovementComponent: GKAgent2D {
-    var targetPosition: vector_float2?
-    var isPaused: Bool = false
-    var mapManager: MapManager? // Still needed for the occupancy sync call
-    private var lastGridPos: TilePosition?
+class MovementComponent: GKComponent {
+    var speed: Float
+    var radius: Float
+    var mass: Float
+    
+    var path: [vector_float2] = []
+    var physics: Bool
+    var position: vector_float2
 
-    override init() {
+    init(speed: Float, radius: Float, mass: Float, physics: Bool, initialPosition: CGPoint){
+        self.speed = speed
+        self.radius = radius
+        self.mass = mass
+        self.physics = physics
+        self.position = vector_float2(Float(initialPosition.x), Float(initialPosition.y))
         super.init()
-        self.radius = 26
-        self.maxSpeed = 100
-        self.behavior = nil
     }
-    
     required init?(coder: NSCoder) { fatalError() }
-    
-    // We keep syncOccupancy here because it updates the Entity's data
-    func syncOccupancy() {
-        guard let entity = self.entity as? Entity, let manager = mapManager else { return }
-        let currentGridPos = manager.calculateGridPos(from: CGPoint(x: CGFloat(position.x), y: CGFloat(position.y)))
-        if lastGridPos == nil { lastGridPos = entity.gridPosition }
-        if currentGridPos != lastGridPos {
-            manager.moveEntity(entity.id, from: lastGridPos!, to: currentGridPos)
-            entity.gridPosition = currentGridPos
-            lastGridPos = currentGridPos
-        }
-    }
 }
 
 class HealthComponent: GKComponent {
     var max: Int
     var current: Int
+    
+    //if this is true, the tile this entity is on is treated as impassable
     var isStaticObstacle: Bool
     
     init(hp: Int, isStaticObstacle: Bool){
