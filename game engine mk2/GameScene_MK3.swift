@@ -21,11 +21,13 @@ class GameScene_MK3: SKScene {
         //add the map's container to the scene
         self.addChild(mapManager.worldNode)
         
-        if let levelData = LevelManager.loadLevel(fileName: "testlevel2") {
+        if let levelData = LevelManager.loadLevel(fileName: "testlevel4") {
             mapManager.buildMap(from: levelData)
-            mapManager.generateNavGraph()
-            mapManager.fitMapToScreen(screenSize: self.size)
             spawnLevelEntities(from: levelData)
+
+            mapManager.generateNavGraph(entityManager: entityManager)
+            mapManager.fitMapToScreen(screenSize: self.size)
+
         }
     }
     
@@ -39,7 +41,7 @@ class GameScene_MK3: SKScene {
         }
         
         movementSystem.update(entityManager: entityManager, mapManager: mapManager, deltaTime: deltaTime)
-        visualSystem.update(entityManager: entityManager, deltaTime: deltaTime)
+        visualSystem.update(entityManager: entityManager, mapManager: mapManager, deltaTime: deltaTime)
         
     }
     

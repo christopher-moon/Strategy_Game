@@ -7,12 +7,14 @@ class EntityNode: SKNode {
     private let stateLabel = SKLabelNode(fontNamed: "AvenirNext-Bold")
     private let healthLabel = SKLabelNode(fontNamed: "AvenirNext-Bold")
 
-    init(entity: Entity, size: CGFloat) {
+    init(entity: Entity, size: CGFloat, position: CGPoint) {
         self.entityID = entity.id
+        
         let color: SKColor = (entity.team == .player) ? .cyan : .red
         self.sprite = SKSpriteNode(color: color, size: CGSize(width: size * 0.7, height: size * 0.7))
         
         super.init()
+        self.position = position
         self.addChild(sprite)
         
         // Setup labels (Top & Bottom)
@@ -30,20 +32,15 @@ class EntityNode: SKNode {
         if let currentState = entity.stateMachine?.currentState {
             stateLabel.text = "\(type(of: currentState))".uppercased()
         }
-        
         if let health = entity.component(ofType: HealthComponent.self) {
             healthLabel.text = "\(health.current)/\(health.max)"
             let ratio = CGFloat(health.current) / CGFloat(health.max)
             healthLabel.fontColor = ratio < 0.3 ? .red : (ratio < 0.7 ? .yellow : .green)
         }
-        
-        //2. z positioning
+        // 2. z positioning
         self.zPosition = 2000 - self.position.y
-
-        
         // 3. Future: State-based animations (e.g., if entity.stateMachine.currentState is Attacking)
         // triggerAnimation("attack")
     }
-    
     required init?(coder aDecoder: NSCoder) { fatalError() }
 }

@@ -1,41 +1,53 @@
 import GameplayKit
 import SpriteKit
 
+import GameplayKit
+import SpriteKit
+
 class MovementSystem {
     
     func update(entityManager: EntityManager, mapManager: MapManager, deltaTime: TimeInterval) {
         let dt = Float(deltaTime)
-        let allMovers = entityManager.allEntities.compactMap { $0.component(ofType: MovementComponent.self) }
         
         for entity in entityManager.allEntities {
             guard let moveComp = entity.component(ofType: MovementComponent.self) else { continue }
             
-            // 1. Path Following
-            if !moveComp.path.isEmpty {
-                let target = moveComp.path[0]
-                let diff = target - moveComp.position
-                let dist = simd_length(diff)
+            // --- STATE GUARD ---
+            // Only process physical path movement if the brain is in the 'Moving' state
+            if entity.stateMachine.currentState is Moving {
                 
-                // Snappy Arrival: Use a larger threshold for "reaching" a waypoint
-                // to prevent orbiting/jittering around the exact pixel.
-                if dist < 5.0 {
-                    moveComp.position = target
-                    let currentPoint = CGPoint(x: CGFloat(target.x), y: CGFloat(target.y))
-                    entity.gridPosition = mapManager.calculateGridPos(from: currentPoint)
-                    moveComp.path.removeFirst()
-                } else {
-                    let direction = simd_normalize(diff)
-                    moveComp.position += direction * (moveComp.speed * dt)
+                // -- 1. MOVEMENT LOGIC (Path following)
+                if !moveComp.path.isEmpty {
+                    let target = moveComp.path[0]
+                    let diff = target - moveComp.position
+                    let dist = simd_length(diff)
+                    
+                    if dist < 5.0 {
+                        moveComp.position = target
+                        moveComp.path.removeFirst()
+                    } else {
+                        let direction = simd_normalize(diff)
+                        moveComp.position += direction * (moveComp.speed * dt)
+                    }
                 }
+            } // <-- End of State Guard
+
+            // -- 2. SYNC TILE POSITION
+            let currentPoint = CGPoint(x: CGFloat(moveComp.position.x), y: CGFloat(moveComp.position.y))
+            let newGridPos = mapManager.calculateGridPos(from: currentPoint)
+            
+            if newGridPos != entity.gridPosition {
+                let oldPos = entity.gridPosition
+                entity.gridPosition = newGridPos
+                mapManager.moveEntity(entity.id, from: oldPos, to: newGridPos, entityManager: entityManager)
             }
             
-            // 2. Hierarchical Separation
-            if moveComp.physics {
-                //applyHierarchicalSeparation(for: moveComp, amongst: allMovers, mapManager: mapManager)
-            }
+            // -- 3. Separation Physics (Runs regardless of state so stationary units still get pushed)
+            //applyHierarchicalSeparation(for: moveComp, amongst: entityManager.allEntities.compactMap { $0.component(ofType: MovementComponent.self) }, mapManager: mapManager)
         }
     }
     
+    // ... [applyHierarchicalSeparation remains unchanged] ...
     private func applyHierarchicalSeparation(for comp: MovementComponent, amongst all: [MovementComponent], mapManager: MapManager) {
         for other in all {
             if other === comp || !other.physics { continue }
@@ -84,7 +96,7 @@ class MovementSystem {
                     // units to "hug" the walls without getting stuck.
                     let cgPotential = CGPoint(x: CGFloat(potentialPos.x), y: CGFloat(potentialPos.y))
                     //if mapManager.isWalkable(at: cgPotential) {
-                        //comp.position = potentialPos
+                    //comp.position = potentialPos
                     //}
                 }
             }
@@ -92,3 +104,5 @@ class MovementSystem {
     }
 }
 
+
+    

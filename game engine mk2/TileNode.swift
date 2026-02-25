@@ -2,7 +2,8 @@ import SpriteKit
 
 class TileNode: SKSpriteNode {
     let tile: Tile
-    
+    private let costLable = SKLabelNode(fontNamed: "AvenirNext-Bold")
+
     init(tile: Tile, width: CGFloat, height: CGFloat) {
         self.tile = tile
         
@@ -27,6 +28,15 @@ class TileNode: SKSpriteNode {
         // Use center anchoring for isometric math consistency
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         self.name = "Tile_\(tile.position.col)_\(tile.position.row)"
+        
+        // Setup labels (Top & Bottom)
+        costLable.fontSize = 12
+        costLable.position = CGPoint(x: 0, y: 0)
+        self.addChild(costLable)
     }
     required init?(coder aDecoder: NSCoder) { fatalError() }
+    
+    func update(deltaTime: TimeInterval){
+        costLable.text = "\(tile.cost)"
+    }
 }

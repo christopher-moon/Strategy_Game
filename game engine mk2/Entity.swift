@@ -7,26 +7,31 @@ enum Team: String, Codable {
     case neutral
 }
 
+//MARK: General Entity
 class Entity: GKEntity {
     let id = UUID()
     let name: String
     var team: Team
-    // What tile the entity is on (for turn-based logic)
+    //what tile the entity is on (for turn-based logic)
     var gridPosition: TilePosition
-    // Brain
+    //entity brain
     var stateMachine: GKStateMachine!
+    //spawn/lifetime timer
+    var timer: TimeInterval
     
-    init(name: String, team: Team, startPos: TilePosition) {
+    init(name: String, team: Team, startPos: TilePosition, timer: TimeInterval) {
         self.name = name
         self.team = team
         self.gridPosition = startPos
+        self.timer = timer
         super.init()
     }
     required init?(coder: NSCoder) { fatalError() }
 }
 
-// MARK: - COMPONENTS
+// MARK: Entity Components
 
+//visual component
 class VisualComponent: GKComponent {
     let node: EntityNode
     
@@ -37,6 +42,7 @@ class VisualComponent: GKComponent {
     required init?(coder: NSCoder) { fatalError() }
 }
 
+//movement component (can move)
 class MovementComponent: GKComponent {
     var speed: Float
     var radius: Float
@@ -57,6 +63,7 @@ class MovementComponent: GKComponent {
     required init?(coder: NSCoder) { fatalError() }
 }
 
+//health component (can take damage and die)
 class HealthComponent: GKComponent {
     var max: Int
     var current: Int
@@ -73,6 +80,7 @@ class HealthComponent: GKComponent {
     required init?(coder: NSCoder) { fatalError() }
 }
 
+//combat component (can deal damage)
 class CombatComponent: GKComponent {
     var damage: Int
     var range: Int
@@ -87,4 +95,16 @@ class CombatComponent: GKComponent {
         super.init()
     }
     required init?(coder: NSCoder) { fatalError() }
+}
+
+//movement cost component (can block/affect pathfinding)
+class MovementCostComponent: GKComponent {
+    let movementCost: Float
+    
+    init(movementCost: Float){
+        self.movementCost = movementCost
+        super.init()
+    }
+    required init?(coder: NSCoder) { fatalError() }
+
 }

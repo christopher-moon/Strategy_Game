@@ -4,17 +4,19 @@ import SpriteKit
 class EntityManager {
     //list of all entities
     var allEntities = Set<Entity>()
+    //dictionary of all entities mapped to their ids for quick lookup
+    private var entityMap = [UUID: Entity]()
     
     //register a new entity
     func addEntity(_ entity: Entity) {
         allEntities.insert(entity)
+        entityMap[entity.id] = entity // Map it
     }
-    
     //remove an entity
     func remove(_ entity: Entity) {
         allEntities.remove(entity)
+        entityMap.removeValue(forKey: entity.id) // Unmap it
     }
-    
     //remove entities (visuals too) with 0>= health and entities specifically marked for death (state == dead)
     func cleanup(scene: GameScene_MK3) {
         
@@ -27,10 +29,9 @@ class EntityManager {
 //who and where
 extension EntityManager {
     //return the entity associated with an id
-    //func getEntity(id: UUID) -> Entity {
-        
-    //}
-    
+    func getEntity(by id: UUID) -> Entity? {
+        return entityMap[id]
+    }
     
     // Find the nearest entity of a specific team
     func findNearestEntity(from origin: vector_float2, onTeam team: Team, ignoring: UUID? = nil) -> Entity? {

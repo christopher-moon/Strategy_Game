@@ -1,7 +1,7 @@
 import GameplayKit
 
 class VisualSystem {
-    func update(entityManager: EntityManager, deltaTime: TimeInterval) {
+    func update(entityManager: EntityManager, mapManager: MapManager, deltaTime: TimeInterval) {
         
         for entity in entityManager.allEntities {
             guard let visualComp = entity.component(ofType: VisualComponent.self) else { continue }
@@ -14,5 +14,9 @@ class VisualSystem {
                 visualComp.node.position = CGPoint(x: CGFloat(moveComp.position.x), y: CGFloat(moveComp.position.y))
             }
         }
+        
+        //for tile in mapManager.grid {
+            //tile.value.visualNode?.update(deltaTime: deltaTime)
+        //}
     }
 }

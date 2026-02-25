@@ -2,25 +2,35 @@
   "templates": {
     "Unit": {
       "name": "Unit",
+      "ai": "aggressive",
+      "timer": 2.0,
       "health": { "hp": 5, "blocking": false },
       "movement": { "speed": 100.0, "radius": 15.0, "mass": 0.5, "physics": true},
-      "combat": {"damage": 2, "range": 1, "threatRange": 8, "attackSpeed": 3}
+      "combat": {"damage": 2, "range": 1, "threatRange": 8, "attackSpeed": 3},
+      "movementCost": {"movementCost": 10.0}
     },
     "Tank": {
       "name": "Tank",
+      "ai": "aggressive",
+      "timer": 3.0,
       "health": { "hp": 10, "blocking": false },
-      "movement": { "speed": 100.0, "radius": 20.0, "mass": 1, "physics": true},
+      "movement": { "speed": 70.0, "radius": 20.0, "mass": 1, "physics": true},
       "combat": {"damage": 2, "range": 1, "threatRange": 8, "attackSpeed": 3}
     },
     "Runner": {
       "name": "Runner",
+      "ai": "aggressive",
+      "timer": 2.0,
       "health": { "hp": 2, "blocking": false },
       "movement": { "speed": 120.0, "radius": 15.0, "mass": 0.1, "physics": true},
       "combat": {"damage": 2, "range": 1, "threatRange": 8, "attackSpeed": 3}
     },
     "Obstacle": {
       "name": "Obstacle",
-      "health": { "hp": 2, "blocking": false }
+      "ai": "passive",
+      "timer": 1.0,
+      "health": { "hp": 2, "blocking": false },
+      "movementCost": {"movementCost": 10.0}
     }
   }
 }
